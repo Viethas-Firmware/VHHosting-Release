@@ -1,0 +1,4348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation Autoweb API</title>
+        <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Roboto+Mono&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+
+        <style>
+body {
+    background-color: #F7F7F7;
+    font-size: 110%;
+    font-family: Helvetica;
+}
+#navbar {
+    background-color: #ECEBEB;
+    position:fixed;
+    height: 100%;
+    width: 20%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 4px;
+    overflow-x: hidden;
+    border-right: 3px solid #ecf0f1;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #aba9a9;
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+@media (max-width: 800px) {
+    #navbar {
+        position: relative;
+        width: 100%;
+        max-height: 200px;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        border-right: none;
+        border-bottom: 3px solid black;
+    }
+}
+#navbar header {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+@media (max-width: 800px) {
+    #navbar header {
+        position: relative;
+    }
+}
+#navbar ul {
+    list-style-type: none;
+    position: relative;
+    top: 15%;		
+}
+@media (max-width: 800px) {
+    #navbar ul {
+        right: 0;
+    }
+}
+
+.nav-method {
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid #e74c3c;
+    border-radius: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 0;
+}
+.nav-link {
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.nav-link:link {
+    color: #1D0BA9;
+}
+.nav-link:hover {
+    color: #000000;
+}
+.nav-link:visited {
+    color: #120765;
+}
+
+.code-method {
+    background-color: #3498db;
+    color: #ecf0f1;
+    font-family: Consolas,"courier new";
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 6px;
+}
+.code-url {
+    background-color: #EEEEEE;
+    border-radius: 4px;
+    color: #4E6E8E;
+    font-family: Consolas,"courier new";
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px;
+}
+
+.tb_headers {
+    width: 30%;
+    border-spacing: 0;
+}
+
+.tb_header_head {
+    background-color: #34495e;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ecf0f1;
+    text-align: left;
+}
+
+.tb_header_content {
+    background-color: #ecf0f1;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+}
+
+th{
+    padding-left: 5px;
+}
+
+.content_code {
+    width: auto;
+    font-family: Consolas,"courier new";
+    font-size: 15px;
+    font-weight: bold;
+}
+
+code {
+    background-color: #95a5a6;
+    border-radius: 4px;
+    padding: 4px;
+    color: #ECEBEB;
+}
+
+#main-doc {
+    position: absolute;
+    padding: 10px;
+    margin-left: 25vw;
+    overflow: hidden;
+}
+@media (max-width: 800px) {
+    #main-doc {
+        position: relative;
+        margin: 0px;
+    }
+}
+.main-section {
+    padding: 20px;
+}
+header {
+    font-family: 'Cairo', sans-serif;
+    /* color: #914DD0; */
+    color: #34495e;
+    font-size: 180%;
+    font-weight: bold;
+}	
+h2 {
+    color: #2d3436;
+    font-family: 'Cairo', sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+h3 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 110%;
+    font-weight: bold;
+    color: #2c3e50;
+}
+p {
+    /* font-family: 'Roboto Mono', monospace; */
+    font-family: Consolas,"courier new";
+    font-size: 16px;
+    font-weight:bold;
+    color: #2c3e50;
+}	
+#basic-elements li {
+    font-size: 110%;
+    font-weight: bold;
+}
+#basic-ex, #table-ex,
+.para-ex, .lists-ex {
+    text-align: center;
+}
+@media (max-width: 800px) {
+    .para-ex {
+        position: relative;
+        right: 15%;
+    }
+}
+#headings-list, #links-list {
+    position: relative;
+    left: 30%;
+    list-style-position: inside;
+}
+@media (max-width: 600px) {
+    #headings-list, #links-list {
+        left: 10%;
+    }
+}
+@media (max-width: 800px) {
+    #hp_header {
+        font-size: 180%;
+    }
+}
+        </style>
+    </head>
+
+<body>
+<nav   id="navbar">
+	<div  >
+	<ul>
+	<li>
+	<a class="nav-link" href="#php configure">PHP Configure</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#php_configure">configure</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#php_restore">restore</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#php_get_configure">get configure</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#admin">Admin</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#admin_create">create</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_remove">remove</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_update">update</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_update_feature">update_feature</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_get_all_admin">get all administration</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_get_all_user">get all user</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#domain">Domain</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#domain_redirect">redirect</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#ftp">FTP</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#ftp_get">get</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#wordpress">Wordpress</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#wordpress_install">install</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#wordpress_uninstall">uninstall</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#database">Database</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#database_create">create</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#database_delete_user">remove</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#get">Get</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#get_user">get user</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#get_token">get token</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#get_profile">get profile</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#file manager">File Manager</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#file_manager_browser">browser</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_new">new</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_rename">rename</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_remove">remove</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_edit">edit</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_get">get</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_upload">upload</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_extract">extract</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#account">Account</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#account_create">create</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#account_remove">remove</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#account_update">update</a>
+
+</li>
+
+</ul>
+<li>
+	<a class="nav-link" href="#hosting">Hosting</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#hosting_create">create</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#hosting_remove">remove</a>
+
+</li>
+
+</ul>
+
+</ul>
+
+</div>
+
+</nav>
+<main id="main-doc">
+	<p>
+URL:   <code class="code-url">https://developer.webappgiare.vn:2440</code>
+
+</p>
+<header id="php configure">1. PHP Configure</header>
+<section class="main-section" id="php_configure">	<header>1.1. configure</header>
+<p>
+Yều cầu cấu hình và thiết lập các thông số của PHP.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/php/configure</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting cần cấu hình PHP.
+</p>
+<p>
++ <code >version</code>
+: Cấu hình phiên bản PHP [7.1, 8.1, 8.2, 8.3]
+</p>
+<p>
++ <code >display_errors</code>
+: Cấu hình thông tin của trường 'display_errors'.
+</p>
+<p>
++ <code >error_reporting</code>
+: Cấu hình thông tin của trường 'error_reporting'.
+</p>
+<p>
++ <code >error_log</code>
+: Cấu hình thông tin của trường 'error_log'.
+</p>
+<p>
++ <code >file_uploads</code>
+: Cấu hình thông tin của trường 'file_uploads'.
+</p>
+<p>
++ <code >upload_max_filesize</code>
+: Cấu hình thông tin của trường 'upload_max_filesize'.
+</p>
+<p>
++ <code >max_file_uploads</code>
+: Cấu hình thông tin của trường 'max_file_uploads'.
+</p>
+<p>
++ <code >post_max_size</code>
+: Cấu hình thông tin của trường 'post_max_size'.
+</p>
+<p>
++ <code >max_execution_time</code>
+: Cấu hình thông tin của trường 'max_execution_time'.
+</p>
+<p>
++ <code >max_input_time</code>
+: Cấu hình thông tin của trường 'max_input_time'.
+</p>
+<p>
++ <code >max_input_vars</code>
+: Cấu hình thông tin của trường 'max_input_vars'.
+</p>
+<p>
++ <code >memory_limit</code>
+: Cấu hình thông tin của trường 'memory_limit'.
+</p>
+<p>
++ <code >session_gc_maxlifetime</code>
+: Cấu hình thông tin của trường 'session.gc_maxlifetime'.
+</p>
+<p>
++ <code >session_save_path</code>
+: Cấu hình thông tin của trường 'session.save_path'.
+</p>
+<p>
++ <code >zlib_output_compression</code>
+: Cấu hình thông tin của trường 'zlib.output_compression'.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "version": "7.1",
+    "display_errors": "Off",
+    "error_reporting": "E_ALL & ~E_DEPRECATED & ~E_STRICT",
+    "error_log": "",
+    "file_uploads": "Off",
+    "upload_max_filesize": "2M",
+    "max_file_uploads": "10",
+    "post_max_size": "8M",
+    "max_execution_time": "100",
+    "max_input_time": "50",
+    "max_input_vars": "",
+    "memory_limit": "256M",
+    "session_gc_maxlifetime": "",
+    "session_save_path": "",
+    "zlib_output_compression": "Off"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗi và nội dung ở bảng ERROR_LIST.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -91,
+    "msg": "Version PHP invaild"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="php_restore">	<header>1.2. restore</header>
+<p>
+Khôi phục các cấu hình mặc định của PHP trong hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/php/restore</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting cần cấu hình PHP.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗi và nội dung ở bảng ERROR_LIST.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -91,
+    "msg": "Version PHP invaild"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="php_get_configure">	<header>1.3. get configure</header>
+<p>
+Lấy thông tin các trường cấu hình trong cấu hình PHP của hosting
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/php/get_configure</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting cần cấu hình PHP.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >configure</code>
+: Thông tin về giá trị của các trường được phép cấu hình của PHP trong hosting.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "configure": {
+        "display_errors": "Off",
+        "error_reporting": "E_ALL&~E_DEPRECATED&~E_STRICT",
+        "error_log": "",
+        "file_uploads": "8M",
+        "upload_max_filesize": "2M",
+        "max_file_uploads": "10",
+        "post_max_size": "8M",
+        "max_execution_time": "100",
+        "max_input_time": "50",
+        "max_input_vars": "",
+        "memory_limit": "256M",
+        "session_gc_maxlifetime": "",
+        "session_save_path": "",
+        "zlib_output_compression": "Off"
+    }
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗi và nội dung ở bảng ERROR_LIST.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -91,
+    "msg": "Version PHP invaild"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="admin">2. Admin</header>
+<section class="main-section" id="admin_create">	<header>2.1. create</header>
+<p>
+Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin email/phone và password để tạo tài khoản, ngoài ra cần phải có token của admin có phân quyền tạo tài khoản mới được cho phép tạo.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/create</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >email_phone</code>
+: Thông tin về email hoặc sdt đăng ký
+</p>
+<p>
++ <code >password</code>
+: Là mật khẩu của tài khoản đăng ký.
+</p>
+<p>
++ <code >priority</code>
+: Phân quyền cho tài khoản mới với 1. HIGH, 2.MIDDLE, 3.LOW.
+</p>
+<p>
++ <code >Note</code>
+: Thông tin về các cấp phân quyền dành cho tài khoản quản trị viên.
+</p>
+<p>
++ <code >1 - PRIORITY HIGH</code>
+: Cho phép thêm/xóa/sửa tất cả tài khoản của ADMIN, lấy danh sách các ADMIN, cập nhật chức năng cho USER và can thiệt vào hệ thống như khởi động lại hệ thống.
+</p>
+<p>
++ <code >2 - PRIORITY MIDDLE</code>
+: Cho phép thêm/xóa/sửa các tài khoản của ADMIN và cập nhật chức năng cho USER
+</p>
+<p>
++ <code >3 - PRIORITY LOW</code>
+: Cho phép cập nhật chức năng của tài khoản khoản người dùng, lấy tất cả danh sách người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "email_phone": "admin@gmail.com",
+    "password": "abc1234@",
+    "priority": 3
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗi và nội dung ở bảng ERROR_LIST.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_remove">	<header>2.2. remove</header>
+<p>
+Yêu cầu xóa tài khoản admin, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/remove</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >username</code>
+: Tên đăng nhập của tài khoản ADMIN cần xóa
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "username": "o5ClWu"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_update">	<header>2.3. update</header>
+<p>
+Yêu cầu cập nhật tài khoản admin thông tin cập nhật bao gồm new_password và new_priority, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/update</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >username</code>
+: Tên đăng nhập của tài khoản ADMIN cần xóa
+</p>
+<p>
++ <code >new_password</code>
+: Nếu cập nhật mật khẩu mới cho tài khoản admin
+</p>
+<p>
++ <code >new_priority</code>
+: Nếu cập nhật phân quyền mới cho tài khoản admin
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "username": "o5ClWu",
+    "new_password": "abc1234@",
+    "new_priority": 1
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_update_feature">	<header>2.4. update_feature</header>
+<p>
+Yêu cầu thực hiện cập nhật các chức năng của tài khoản người dùng thông qua quản trị viên, có thế cập nhật từng chức năng hoặc nhiều chức năng cùng lúc.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/update_feature</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >username</code>
+: Tài khoản của người dùng cần cập nhật chức năng
+</p>
+<p>
++ <code >number_hosting</code>
+: Cập nhật số hosting của người dùng
+</p>
+<p>
++ <code >number_database</code>
+: Cập nhật số lượng database của người dùng
+</p>
+<p>
++ <code >feature_hosting</code>
+: Cập nhật đóng/mở chức năng hosting
+</p>
+<p>
++ <code >feature_database</code>
+: Cập nhật đóng/mở chức năng database
+</p>
+<p>
++ <code >feature_wordpress</code>
+: Cập nhật đóng/mở chức năng wordpress
+</p>
+<p>
++ <code >feature_file_manager</code>
+: Cập nhật đóng/mở chức năng quản lý file
+</p>
+<p>
++ <code >feature_ssl_manager</code>
+: Cập nhật đóng/mở chức năng quản lý SSL
+</p>
+<p>
++ <code >feature_domain_parked</code>
+: Cập nhật đóng/mở chức năng tên miền song song
+</p>
+<p>
++ <code >feature_domain_redirect</code>
+: Cập nhật đóng/mở chức năng tên miên chuyển tiếp
+</p>
+<p>
++ <code >feature_domain_subdomain</code>
+: Cập nhật đóng/mở chức năng tên miền phụ
+</p>
+<p>
++ <code >feature_ftp</code>
+: Cập nhật đóng/mở chức năng dịch vụ FTP
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "username": "IWfMg1",
+    "number_hosting": 2,
+    "number_database": 4,
+    "feature_hosting": "true",
+    "feature_database": "false",
+    "feature_wordpress": "true",
+    "feature_file_manager": "true",
+    "feature_ssl_manager": "false",
+    "feature_domain_parked": "false",
+    "feature_domain_redirect": "true",
+    "feature_domain_subdomain": "false",
+    "feature_ftp": "true"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_get_all_admin">	<header>2.5. get all administration</header>
+<p>
+Yêu cầu cho phép lấy danh sách của tất cả quản trị viên.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">api/admin/get_all_admin</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên tài khoản của quản trị viên
+</p>
+<p>
++ <code >email_phone</code>
+: Thông tin về email hoặc sdt đăng ký
+</p>
+<p>
++ <code >priority</code>
+: Mã phân quyền của quản trị viên
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "50a6a2b954fb55803d64969717a9cf0e": {
+        "username": "o5ClWu",
+        "email_phone": "abc2@gmail.com",
+        "priority": 255
+    },
+    "...": {}
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_get_all_user">	<header>2.6. get all user</header>
+<p>
+Yêu cầu thực hiện lấy danh sách tất cả người dùng trong hệ thống, để thực hiện được yêu cầu QTV cần phải được phân quyền.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/admin/get_all_user</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng.
+</p>
+<p>
++ <code >profile</code>
+: Phân loại tài khoản người dùng
+</p>
+<p>
++ <code >hosting</code>
+: Danh sách các hosting mà người dùng đang sở hữu.
+</p>
+<p>
++ <code >storage</code>
+: Thông tin về dung lượng ổ cứng mà người dùng đang sở hữu, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng chưa sử dụng và phần trăm.
+</p>
+<p>
++ <code >bandwidth</code>
+: Thông tin về băng thông mà người dùng đã sử dụng.
+</p>
+<p>
++ <code >innodes</code>
+: Số lượng tập tin mà người dùng đã tải lên tất cả hosting mà người dùng quản lý
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "50a6a2b954fb55803d64969717a9cf0e": {
+        "username": "lJPbC7",
+        "profile": "premium",
+        "hosting": [],
+        "databases": [],
+        "storage": {
+            "size": "974M",
+            "used": "24K",
+            "avail": "907M",
+            "percent": "1%"
+        },
+        "bandwidth": {},
+        "innodes": {
+            "files": 0
+        }
+    },
+    "...": {},
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -54,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="domain">3. Domain</header>
+<section class="main-section" id="domain_redirect">	<header>3.1. redirect</header>
+<p>
+Yêu cầu chuyển hướng tên miền tới hosting, để yêu cầu thực hiện thành công cần tham số hosting là host mà tên miền cần được chuyển hướng, domain là tên của người dùng cần chuyển hướng.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/domain/redirect</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting mà tên miền cần chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "domain": "iqviet.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token parameter is empty"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="ftp">4. FTP</header>
+<section class="main-section" id="ftp_get">	<header>4.1. get</header>
+<p>
+Yêu cầu lấy thông tin cấu hình của FTP của người dùng.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/ftp/get</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >host</code>
+: Tên đường dẫn/host của server FTP.
+</p>
+<p>
++ <code >port</code>
+: Cổng dịch vụ FTP
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng giúp đăng nhập dịch vụ FTP
+</p>
+<p>
++ <code >password</code>
+: Mật khẩu để đăng nhập dịch vụ FTP
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công sẽ trả về thông tin cấu hình của dịch vụ FTP bao gồm host, port, username, password của dịch vụ FTP.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "host": "files.webappgiare.vn",
+    "port": 21,
+    "username": "lJPbC7",
+    "password": "same as your website password"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại sẽ trả về mã lỗi, tra cứu mã lỗi ở ERROR_LIST bên dưới
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -51,
+    "msg": "Upgrade to premium to use this function"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="wordpress">5. Wordpress</header>
+<section class="main-section" id="wordpress_install">	<header>5.1. install</header>
+<p>
+Yêu cầu thực hiện cài đặt wordpress dành cho người dùng, phiên bản wordpress sử dụng là phiên bản mới nhất của wordpress. Thông tin yêu cầu là tên hosting cần cài đặt, tên người dùng và mật khẩu để cài đặt cho csdl.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/wordpress/install</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting để cài dặt hosting.
+</p>
+<p>
++ <code >wp_user</code>
+: Tên người dùng để sử dụng trong csdl - tên người dùng được đặt tự đo
+</p>
+<p>
++ <code >wp_password</code>
+: Mật khẩu dành để bảo mật csdl
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "wp_user": "admin_wp",
+    "wp_password": "1234@abc"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >db_name</code>
+: Tên cơ sở dữ liệu của dự án wordpress được tạo
+</p>
+<p>
++ <code >db_user</code>
+: Tên người dùng để truy vấn tới csdl.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "db_name": "OqFc3G_wp_database_T3FGYzNH",
+    "db_user": "OqFc3G_admin_wp"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện không thành công sẽ trả về mã lỗi và nội dung của lỗi
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -28,
+    "msg": "Create database mysql failed"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="wordpress_uninstall">	<header>5.2. uninstall</header>
+<p>
+Yêu cầu thực hiện gỡ bỏ mã nguồn của wordpress khỏi hosting của người dùng
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/wordpress/uninstall</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên thông tin hosting của người dùng.
+</p>
+<p>
++ <code >wp_user</code>
+: Tên người dùng để sử dụng trong csdl - tên người dùng đã đặt cho csdl dùng trong wordpress
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "wp_user": "OqFc3G_admin_wp"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -28,
+    "msg": "Remove database mysql failed"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="database">6. Database</header>
+<section class="main-section" id="database_create">	<header>6.1. create</header>
+<p>
+Yêu cầu cho phép tạo cơ sở dữ liệu thông qua mysql, yêu cầu cần cung cấp thông tin về hosting tạo csdl và mật khẩu để đăng nhật vào csdl, tên người dùng để đăng nhập vào csdl sẽ là username của tài khoản đã đăng ký, để có thể quản lý các database đã tạo có thể truy cập tên miền https://databases.webappgiare.vn
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/database/create</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >db_name</code>
+: Tên của cơ sở dữ liệu
+</p>
+<p>
++ <code >db_user</code>
+: Tên người dùng dùng để truy vấn vào csdl
+</p>
+<p>
++ <code >db_password</code>
+: Mật khẩu đăng nhập csdl.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "db_name": "database_account",
+    "db_user": "admin",
+    "db_password": "1234@abc"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >database</code>
+: Tên của csdl nếu được tạo thành công.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "db_name": "OqFc3G_database_account",
+    "db_user": "OqFc3G_admin"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -27,
+    "msg": "Create user mysql failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="database_delete_user">	<header>6.2. remove</header>
+<p>
+Yêu cầu thực hiện xóa csdl của hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/database/remove</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >db_name</code>
+: Thông tin về hosting đang sủ dụng csdl.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "db_name": "OqFc3G_database_account",
+    "db_user": "OqFc3G_admin"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -26,
+    "msg": "Access denied mysql"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="get">7. Get</header>
+<section class="main-section" id="get_user">	<header>7.1. get user</header>
+<p>
+Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải cung cấp token để xác thực tài khoản người dùng
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/user/get_user</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng.
+</p>
+<p>
++ <code >hosting</code>
+: Danh sách các hosting mà người dùng đang sở hữu.
+</p>
+<p>
++ <code >storage</code>
+: Thông tin về dung lượng ổ cứng mà người dùng đang sở hữu, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng chưa sử dụng và phần trăm.
+</p>
+<p>
++ <code >bandwidth</code>
+: Thông tin về băng thông mà người dùng đã sử dụng.
+</p>
+<p>
++ <code >innodes</code>
+: Số lượng tập tin mà người dùng đã tải lên tất cả hosting mà người dùng quản lý
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "username": "IWfMg1",
+    "hosting": [
+        "smarthome.webappgiare.vn"
+    ],
+    "storage": {
+        "size": "974M",
+        "used": "44K",
+        "avail": "907M",
+        "percent": "1%"
+    },
+    "bandwidth": {},
+    "innodes": {
+        "files": 3
+    },
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token paremeter is wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="get_token">	<header>7.2. get token</header>
+<p>
+Yêu cầu lấy lại token xác thực tài khoản, để thực hiện yêu cầu thành công cần phải cung cấp lại username và password của tài khoản đã đăng ký, thông tin username và password được mã hóa bằng base64 được đính kèm trong header Auth, kết quả trả về gồm mã lỗi nếu thành công là 0 và token xác thực của tài khoản.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/user/get_token</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Basic Base64(Username:Password)</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >token</code>
+: Token xác thực của tài khoản.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện lấy thông tin token thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "token": "899491edeea91cef7d59d0f3912f9701",
+    "msg": "Get token account successfully."
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện lấy thông tin token không thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -1,
+    "msg": "Username or password is wrong."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="get_profile">	<header>7.3. get profile</header>
+<p>
+Yêu cầu lấy thông tin profile của người dùng, profile chứa thông tin các chức năng sử dụng của tài khoản
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/user/get_profile</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>{YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng
+</p>
+<p>
++ <code >profile</code>
+: Loại tài khoản basic/premium/custom
+</p>
+<p>
++ <code >feature</code>
+: Thông tin chức năng của tài khoản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "username": "mJpEfo",
+    "profile": "custom",
+    "feature": {
+        "number_hosting": 1,
+        "number_databases": 3,
+        "feature_hosting": true,
+        "feature_database": true,
+        "feature_wordpress": true,
+        "feature_file_manager": true,
+        "feature_ssl_manager": false,
+        "feature_domain_parked": false,
+        "feature_domain_redirect": true,
+        "feature_domain_subdomain": false,
+        "feature_ftp": true
+    }
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token parameter is wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="file manager">8. File Manager</header>
+<section class="main-section" id="file_manager_browser">	<header>8.1. browser</header>
+<p>
+Yêu cầu này có phép duyệt các tập tin và thư mục của hosting
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/browser</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin về hosting muốn được duyệt.
+</p>
+<p>
++ <code >path</code>
+: Thông tin đường dẫn cần duyệt nhánh cây gốc là '/'.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/..."
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >browser</code>
+: Là nội dung của hoặc kết quả của duyệt file.
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn tới thư mục hoặc tập tin trong hosting.
+</p>
+<p>
++ <code >dir</code>
+: Cờ thông báo nội dung đường dẫn trên là thư mục hoặc tập tin.
+</p>
+<p>
++ <code >permission</code>
+: Thông tin về quyền truy cập tập tin hay thư mục.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "browser": {
+        "smarthome.webappgiare.vn": [
+            {
+                "path": "/home/IWfMg1/smarthome.webappgiare.vn/index.html",
+                "dir": false,
+                "permission": "-rw-rw-r--"
+            },
+            {
+                "path": "/home/IWfMg1/smarthome.webappgiare.vn/script.js",
+                "dir": false,
+                "permission": "-rw-r--r--"
+            },
+            {
+                "path": "/home/IWfMg1/smarthome.webappgiare.vn/style.css",
+                "dir": false,
+                "permission": "-rw-r--r--"
+            }
+        ]
+    },
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện không thành công sẽ trả về mã lỗi và nội dung của lỗi
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_new">	<header>8.2. new</header>
+<p>
+Yêu cầu cho phép tạo thư mục hoặc tập tin trong hosting
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/new</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin về hosting muốn được muốn tạo thư mục hoặc tập tin.
+</p>
+<p>
++ <code >path</code>
+: Thông tin đường dẫn của tập tin hoặc thư mục mới cần được tạo.
+</p>
+<p>
++ <code >is_dir</code>
+: Cờ thông báo bằng 'true' nếu muốn tạo thư mục và 'false' nếu muốn tạo tập tin.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt",
+    "is_dir": false
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_rename">	<header>8.3. rename</header>
+<p>
+Yêu cầu này cho phép người dùng có thể đổi tên cho tập tin hoặc thư mục nằm trong hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/rename</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin hoặc thư mục cần được đổi tên.
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn của tập tin hoặc thư mục cần đổi tên.
+</p>
+<p>
++ <code >new_path</code>
+: Đường dẫn của tập tin hoặc thư mục với tên mới
+</p>
+<p>
++ <code >is_dir</code>
+: Cờ thông báo đối tượng cần đổi là thư mục hay tập tin, nếu cờ bằng 'true' sẽ là thư mục còn false sẽ là tập tin.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt",
+    "new_path": "/assets/helloworld.txt",
+    "is_dir": false
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công sẽ phản hồi với 'code' là 0 và 'msg' là 'Success'
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_remove">	<header>8.4. remove</header>
+<p>
+Yêu cầu thực hiện xóa thư mục hoặc tập tin trong hosting, cho phép xóa một tập tin hoặc thư mục hoặc nhiều tập tin và thư mục. LƯU Ý (khi xóa thư mục thì hệ thống sẽ xóa toàn bộ thư mục và tập tin bên trong). Việc xóa nhiều tập tin thì sẽ ngăn cách các đường dẫn bằng ';'
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/remove</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin hoặc thư mục cần xóa.
+</p>
+<p>
++ <code >path</code>
+: Thông tin đường dẫn của thư mục hoặc tập tin cần được xóa.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "assets/hello.txt;index.html;tmp/",
+    "is_dir": false
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_edit">	<header>8.5. edit</header>
+<p>
+Yêu cầu cho phép thay đổi nội dung của tập tin nằm trong hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/edit</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin cần chỉnh sửa.
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn của tập tin cần chỉnh sửa.
+</p>
+<p>
++ <code >content</code>
+: nội dung của tập tin cần chỉnh sửa.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt",
+    "content": "Xin ch\u00e0o c\u00e1c b\u1ea1n"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -19,
+    "msg": "File does not exist"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_get">	<header>8.6. get</header>
+<p>
+Thực hiện yêu cầu lấy nội dung trong tập tin.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/get</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting
+</p>
+<p>
++ <code >path</code>
+: Thông tin đường dẫn của tập tin cần đọc nội dung
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "content": "Xin ch\u00e0o c\u00e1c b\u1ea1n"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -19,
+    "msg": "File does not exist"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_upload">	<header>8.7. upload</header>
+<p>
+Yêu cầu thực hiện tải tập tin lên hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/upload</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin cần tải tập tin lên.
+</p>
+<p>
++ <code >path</code>
+: Vị trị của cần tải tập tin lên trong hosting.
+</p>
+<p>
++ <code >file</code>
+: Tập tin cần được tải lên.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assest/",
+    "file": "C:/Users/ABC/Desktop/hello.txt"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -17,
+    "msg": "File exists"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_extract">	<header>8.8. extract</header>
+<p>
+Yều thực hiện giải nén tập tin .zip .rar ... trên hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/extract</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn của tập tin của giải nén.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assest/source.zip"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -19,
+    "msg": "File does not exist"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="account">9. Account</header>
+<section class="main-section" id="account_create">	<header>9.1. create</header>
+<p>
+Tạo tài khoản để cho phép phân quyền sử dụng tài nguyên của VPS, yêu cầu phải có username và password. Kết quả trả về là chuỗi token giúp xác thực đối tượng.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/user/create</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >profile</code>
+: là phân loại người dùng theo các gói sử dụng như 'basic', 'premium' hoặc 'custom' các gói sẽ cho phép giới hạn quyền sử dụng chức năng của mỗi tài khoản.
+</p>
+<p>
++ <code >email</code>
+: Địa chỉ email hoặc số điện thoại để đăng ký thông tin tài khoản.
+</p>
+<p>
++ <code >password</code>
+: Là mật khẩu của tài khoản đăng ký, chú ý mật khẩu này được dùng để đăng nhập cho FTP.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Basic Base64(Email:Password)</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "profile": "basic"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng được cấp bởi máy chủ, username rất qua trọng vị được dùng để đăng nhập vào ftp.
+</p>
+<p>
++ <code >token</code>
+: Mã xác thực của đối tượng.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện tạo tài khoản phân quyền THÀNH CÔNG sẽ phản hồi với nội dung sau.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "username": "4lieJ1",
+    "token": "d794c7516b5bf3c630c7e191d7653f44",
+    "msg": "create account success."
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện tạo tài khoản phân quyền THẤT BẠI sẽ phản hồi với nội dung sau.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "msg": "create account failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="account_remove">	<header>9.2. remove</header>
+<p>
+Xóa tài khoản phân quyền, khi xóa cần phải chắc chắn các hosting của tài khoản đã được xóa, rồi mới cho phép xóa tài khoản, việc yêu cầu xóa phải được xác thực thông qua token xác thực. Nếu token xác thực chính xác thì HTTP code sẽ phản hồi là 200 còn nếu token xác thực không chính xác hoặc không tồn tại thì HTTP code là 203
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/user/remove</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR-TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp xóa tài khoản phân quyền thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Account has been deleted."
+}
+	</code>
+</pre>
+<p>
+Trường hợp xóa không thành công sẽ trả về mã lỗi và nội dung của lỗi gây ra việc xóa không thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "msg": "This account still has hosting being deployed. Please delete all hosting before deleting."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="account_update">	<header>9.3. update</header>
+<p>
+Yêu cầu cập nhật thông tin tài khoản, thông tin cập nhật gồm loại gói tin hoặc các chức năng của tài khoản, có thế cập nhật từng tham số hoặc cập nhật nhiều tham số cùng lúc.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/user/update</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >profile</code>
+: Cập nhật gói chức năng dành cho tài khoản người dùng Basic/Premium.
+</p>
+<p>
++ <code >number_hosting</code>
+: Cập nhật số hosting của người dùng
+</p>
+<p>
++ <code >number_database</code>
+: Cập nhật số lượng database của người dùng
+</p>
+<p>
++ <code >feature_hosting</code>
+: Cập nhật đóng/mở chức năng hosting
+</p>
+<p>
++ <code >feature_database</code>
+: Cập nhật đóng/mở chức năng database
+</p>
+<p>
++ <code >feature_wordpress</code>
+: Cập nhật đóng/mở chức năng wordpress
+</p>
+<p>
++ <code >feature_file_manager</code>
+: Cập nhật đóng/mở chức năng quản lý file
+</p>
+<p>
++ <code >feature_ssl_manager</code>
+: Cập nhật đóng/mở chức năng quản lý SSL
+</p>
+<p>
++ <code >feature_domain_parked</code>
+: Cập nhật đóng/mở chức năng tên miền song song
+</p>
+<p>
++ <code >feature_domain_redirect</code>
+: Cập nhật đóng/mở chức năng tên miên chuyển tiếp
+</p>
+<p>
++ <code >feature_domain_subdomain</code>
+: Cập nhật đóng/mở chức năng tên miền phụ
+</p>
+<p>
++ <code >feature_ftp</code>
+: Cập nhật đóng/mở chức năng dịch vụ FTP
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "profile": "premium",
+    "number_hosting": 2,
+    "number_database": 4,
+    "feature_hosting": "true",
+    "feature_database": "false",
+    "feature_wordpress": "true",
+    "feature_file_manager": "true",
+    "feature_ssl_manager": "false",
+    "feature_domain_parked": "false",
+    "feature_domain_redirect": "true",
+    "feature_domain_subdomain": "false",
+    "feature_ftp": "true"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp cập nhật thông tin thành công thì nội dung phản hồi sẽ là.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Update account information successfully."
+}
+	</code>
+</pre>
+<p>
+Trường hợp cập nhật thông tin không thành công sẽ phản hồi với thông tin mã lỗi và thông tin gây ra lỗi dưới dạng văn bản.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "msg": "Update account information failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="hosting">10. Hosting</header>
+<section class="main-section" id="hosting_create">	<header>10.1. create</header>
+<p>
+Cho phép người dùng tạo hosting thông qua token xác thực tài khoản, để tạo hosting cần phải cung cấp để tạo hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/hosting/v1/create</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >subdomain</code>
+: Là tên của hosting, tên này sẽ được nối với tên miền chính là 'webappgiare.vn' để làm tên miền phụ cho hosting, tên này phải là duy nhất trong tài khoản. (CHÚ Ý tham số subdomain là bắt buộc)
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "subdomain": "smarthome"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >uuid</code>
+: Mã người dùng
+</p>
+<p>
++ <code >url</code>
+: Đường dẫn khi hosting được tao.
+</p>
+<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp nếu tạo hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "uuid": "899491edeea91cef7d59d0f3912f9701",
+    "url": "https://smarthome.webappgiare.vn",
+    "code": 0,
+    "msg": "created."
+}
+	</code>
+</pre>
+<p>
+Trường hợp nếu tạo hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "msg": "Create hosting failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="hosting_remove">	<header>10.2. remove</header>
+<p>
+Yêu cầu xóa hosting dựa vào thông tin token của người dùng, nếu token chính xác thì HTTP code phản hồi sẽ là 200, còn nếu token không chính xác hoặc không tồn tại thì HTTP code phản hồi sẽ là 203.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/hosting/v1/remove</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên hosting cần xóa trong tài khoản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp xóa hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Hosting remove successfully."
+}
+	</code>
+</pre>
+<p>
+Trường hợp xóa hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 1,
+    "msg": "Hosting remove failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="error_list">Error list</header>
+<section class="main-section" id="">	<h2>E_SUCCESS</h2>
+<p>
++ <code >code</code>
+: 0
+</p>
+<p>
++ <code >msg</code>
+: Success
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_SUBDOMAIN_READY</h2>
+<p>
++ <code >code</code>
+: -1
+</p>
+<p>
++ <code >msg</code>
+: Subdomain already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_SUBDOMAIN_EMPTY</h2>
+<p>
++ <code >code</code>
+: -2
+</p>
+<p>
++ <code >msg</code>
+: Subdomain is empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_HOSTING_EMPTY</h2>
+<p>
++ <code >code</code>
+: -3
+</p>
+<p>
++ <code >msg</code>
+: Hosting name is empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_HOSTING_WRONG</h2>
+<p>
++ <code >code</code>
+: -4
+</p>
+<p>
++ <code >msg</code>
+: Hosting name is wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_UUID_EMPTY</h2>
+<p>
++ <code >code</code>
+: -5
+</p>
+<p>
++ <code >msg</code>
+: Token parameter is empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DOMAIN_USED</h2>
+<p>
++ <code >code</code>
+: -6
+</p>
+<p>
++ <code >msg</code>
+: Domain already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_UUID_WRONG</h2>
+<p>
++ <code >code</code>
+: -7
+</p>
+<p>
++ <code >msg</code>
+: Token parameter is wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_CERTFICATE_FAILED</h2>
+<p>
++ <code >code</code>
+: -8
+</p>
+<p>
++ <code >msg</code>
+: Create certificate for domain failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_INFORMATION_WRONG</h2>
+<p>
++ <code >code</code>
+: -9
+</p>
+<p>
++ <code >msg</code>
+: Account information is wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_EMAIL_PHONE_AVAILABLE</h2>
+<p>
++ <code >code</code>
+: -10
+</p>
+<p>
++ <code >msg</code>
+: Email information or phone number already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_AUTHENTICATION_WRONG</h2>
+<p>
++ <code >code</code>
+: -11
+</p>
+<p>
++ <code >msg</code>
+: No authentication information available
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_FAILED</h2>
+<p>
++ <code >code</code>
+: -12
+</p>
+<p>
++ <code >msg</code>
+: Create failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_REMOVE_FAILED</h2>
+<p>
++ <code >code</code>
+: -13
+</p>
+<p>
++ <code >msg</code>
+: Remove failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_UPDATE_FAILED</h2>
+<p>
++ <code >code</code>
+: -14
+</p>
+<p>
++ <code >msg</code>
+: Update failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_NO_SUCH_FILE_FOLDER</h2>
+<p>
++ <code >code</code>
+: -15
+</p>
+<p>
++ <code >msg</code>
+: No such file or directory
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_PATH_WRONG</h2>
+<p>
++ <code >code</code>
+: -16
+</p>
+<p>
++ <code >msg</code>
+: Path wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FILE_EXISTS</h2>
+<p>
++ <code >code</code>
+: -17
+</p>
+<p>
++ <code >msg</code>
+: File exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FOLDER_EXISTS</h2>
+<p>
++ <code >code</code>
+: -18
+</p>
+<p>
++ <code >msg</code>
+: Folder exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FILE_NOT_EXISTS</h2>
+<p>
++ <code >code</code>
+: -19
+</p>
+<p>
++ <code >msg</code>
+: File does not exist
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FOLDER_NOT_EXISTS</h2>
+<p>
++ <code >code</code>
+: -20
+</p>
+<p>
++ <code >msg</code>
+: Directory does not exist
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_FILE_FAILED</h2>
+<p>
++ <code >code</code>
+: -21
+</p>
+<p>
++ <code >msg</code>
+: Creating new file failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_FOLDER_FAILED</h2>
+<p>
++ <code >code</code>
+: -22
+</p>
+<p>
++ <code >msg</code>
+: Creating new folder failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_UPLOAD_FILE_FAILED</h2>
+<p>
++ <code >code</code>
+: -23
+</p>
+<p>
++ <code >msg</code>
+: Upload file failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_EXTENSION_WRONG</h2>
+<p>
++ <code >code</code>
+: -24
+</p>
+<p>
++ <code >msg</code>
+: Extension of file is wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ACCESS_DENIED</h2>
+<p>
++ <code >code</code>
+: -25
+</p>
+<p>
++ <code >msg</code>
+: Access denied
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ACCESS_MYSQL_FAILED</h2>
+<p>
++ <code >code</code>
+: -26
+</p>
+<p>
++ <code >msg</code>
+: Access denied mysql
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_USER_MYSQL_FAILED</h2>
+<p>
++ <code >code</code>
+: -27
+</p>
+<p>
++ <code >msg</code>
+: Create user mysql failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_CREATE_DATABASE_MYSQL_FAILED</h2>
+<p>
++ <code >code</code>
+: -28
+</p>
+<p>
++ <code >msg</code>
+: Create database mysql failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_GRANT_PRIVILEGES_FAILED</h2>
+<p>
++ <code >code</code>
+: -29
+</p>
+<p>
++ <code >msg</code>
+: Grant privileges failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_PASSWORD_MYSQL_EMPTY</h2>
+<p>
++ <code >code</code>
+: -30
+</p>
+<p>
++ <code >msg</code>
+: Password for mysql empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DOWNLOAD_FAILED</h2>
+<p>
++ <code >code</code>
+: -31
+</p>
+<p>
++ <code >msg</code>
+: Download failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_REQUEST_FAILED</h2>
+<p>
++ <code >code</code>
+: -32
+</p>
+<p>
++ <code >msg</code>
+: Request HTTP failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DATABASE_FULL</h2>
+<p>
++ <code >code</code>
+: -33
+</p>
+<p>
++ <code >msg</code>
+: Database full
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FILE_FOLDER_NOT_EXISTS</h2>
+<p>
++ <code >code</code>
+: -34
+</p>
+<p>
++ <code >msg</code>
+: File or Folder does not exist
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DATABASE_USER_PASSWORD_EMPTY</h2>
+<p>
++ <code >code</code>
+: -35
+</p>
+<p>
++ <code >msg</code>
+: Database username or password empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_REMOVE_DATABASE_FAILED</h2>
+<p>
++ <code >code</code>
+: -36
+</p>
+<p>
++ <code >msg</code>
+: Remove database fail
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_REMOVE_USER_DATABASE_FAILED</h2>
+<p>
++ <code >code</code>
+: -37
+</p>
+<p>
++ <code >msg</code>
+: Remove user database fail
+</p>
+<hr>
+
+</section>
+
+</main>
+
+</body>
+
+</html>

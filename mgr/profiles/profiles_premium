@@ -1,0 +1,11 @@
+number_hosting=2
+number_databases=4
+feature_hosting=true
+feature_database=true
+feature_wordpress=true
+feature_file_manager=true
+feature_ssl_manager=true
+feature_domain_parked=true
+feature_domain_redirect=true
+feature_domain_subdomain=true
+feature_ftp=true
