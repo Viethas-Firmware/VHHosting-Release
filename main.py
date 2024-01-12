@@ -23,32 +23,32 @@ from src.system.db.db_hosting       import DB_HOSTING
 
 
 
-
 class ThreadBaseServer(ThreadingMixIn, HTTPServer): ...
 
 def process_backup():
+	print("BACKUP PID: ", os.getpid())
 	datetime_run			= datetime.now()
 	while True:
 		try:
-			if (datetime.now() - datetime_run).days	== 1:
-				# thực hiện đồng bộ dữ liệu toàn hệ thống
-				BACKUP.all()
+			if (datetime.now() - datetime_run).days	> 1:
+				print("backup")
 				# thực hiện đồng bộ log
 				LOG.backup()
 				ACCESS.backup()
+				# thực hiện đồng bộ dữ liệu toàn hệ thống
+				BACKUP.all()
 				# cập nhật lại thông tin 
 				datetime_run		= datetime.now()
-			# 
-			time.sleep(60 * 60)
+			# wait time
+			time.sleep(60)
 		except Exception as e:
 			_, _, exc_tb = sys.exc_info()
 			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-			LOG.append(str(e) + "\tFile: " + fname + "\tLine: " + exc_tb.tb_lineno)
-			# đóng kết nối tới csdl
-			MYSQL.MS_connection.close()
-			sys.exit(0)
+			LOG.append(str(e) + "\tFile: " + fname + "\tLine: " + str(exc_tb.tb_lineno))
+			return
 
 try:
+	print(datetime.now())
 	print("==================== SERVER RUN ====================")
 	print("USER: ",	os.geteuid())
 	print("PID: ", os.getpid())
@@ -95,7 +95,7 @@ try:
 except Exception as e:
 	_, _, exc_tb = sys.exc_info()
 	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-	LOG.append(str(e) + "\tFile: " + fname + "\tLine: " + exc_tb.tb_lineno)
+	LOG.append(str(e) + "\tFile: " + fname + "\tLine: " + str(exc_tb.tb_lineno))
 	# đóng kết nối tới csdl
 	MYSQL.MS_connection.close()
 	sys.exit(0)
