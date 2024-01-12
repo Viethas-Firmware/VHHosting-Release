@@ -14,6 +14,10 @@ from src.log						import LOG, ACCESS
 from src.server                     import SERVER
 from src.define                     import *
 
+from src.nginx						import NGINX
+from src.ftp.ftp					import FTP
+from src.php.php_configure			import PHP_CONFIGURE
+
 from src.system.disk                import DISK
 from src.system.backup				import BACKUP
 
@@ -26,12 +30,10 @@ from src.system.db.db_hosting       import DB_HOSTING
 class ThreadBaseServer(ThreadingMixIn, HTTPServer): ...
 
 def process_backup():
-	print("BACKUP PID: ", os.getpid())
 	datetime_run			= datetime.now()
 	while True:
 		try:
-			if (datetime.now() - datetime_run).days	> 1:
-				print("backup")
+			if (datetime.now() - datetime_run).days	> 0:
 				# thực hiện đồng bộ log
 				LOG.backup()
 				ACCESS.backup()
@@ -40,7 +42,7 @@ def process_backup():
 				# cập nhật lại thông tin 
 				datetime_run		= datetime.now()
 			# wait time
-			time.sleep(60)
+			time.sleep(60 * 30)
 		except Exception as e:
 			_, _, exc_tb = sys.exc_info()
 			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -48,16 +50,22 @@ def process_backup():
 			return
 
 try:
-	print(datetime.now())
-	print("==================== SERVER RUN ====================")
-	print("SOFTWARE version: ", VERSION)
-	print("USER: ",	os.geteuid())
-	print("PID: ", os.getpid())
-
 	# thực hiện chạy tiến trình backup
 	p_backup		= Process(target=process_backup)
 	p_backup.start()
-
+	# khi chương trình chạy thực hiện ghi lại các thông tin của chương trình trong access.log
+	now				= datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	ACCESS.append(f"===> start on {now}.")
+	ACCESS.append(f"software version: {VERSION}")
+	ACCESS.append(f"process main on {os.getpid()}.")
+	ACCESS.append(f"process backup on {p_backup.pid}.")
+	# thực hiện kiểm tra trạng thái của các dịch vụ liên quan
+	ACCESS.append(f"check NGINX service: {NGINX.status()}.")
+	ACCESS.append(f"check FTP service: {FTP.status()}.")
+	ACCESS.append(f"check MYSQL service: {MYSQL.status()}.")
+	# kiểm tra dịch vụ của các php-fpm
+	for version in PHP_CONFIGURE.VERSIONS:
+		ACCESS.append(f"check PHP-FPM version {version} service: {PHP_CONFIGURE.status(version)}.")
 
 	# thực hiện liên kết tới CSDL MYSQL
 	MYSQL.MS_connection	= MYSQL.connection(host="localhost", user="ubuntu", password="Admin1234@")
