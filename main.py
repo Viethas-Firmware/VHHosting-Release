@@ -50,6 +50,7 @@ def process_backup():
 try:
 	print(datetime.now())
 	print("==================== SERVER RUN ====================")
+	print("SOFTWARE version: ", VERSION)
 	print("USER: ",	os.geteuid())
 	print("PID: ", os.getpid())
 
