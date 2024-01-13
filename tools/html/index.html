@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>Documentation Autoweb API</title>
         <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -286,6 +287,18 @@ p {
 </li>
 <li>
 	<a class="nav-link" href="#admin_get_all_user">get all user</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_check_release">check release</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_download_update">download update</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_install_update">install update</a>
 
 </li>
 
@@ -938,7 +951,7 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -1033,7 +1046,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -1138,7 +1151,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -1287,7 +1300,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -1387,7 +1400,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -1512,7 +1525,269 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -54,
+    "code": -1,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_check_release">	<header>2.7. check release</header>
+<p>
+Yêu cầu kiểm tra thông tin cập nhật, yêu cầu này chỉ thực hiện được khi qtv được phân quyền ở mức cao nhất.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/admin/check_release</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >current</code>
+: Là phiên bản hiện tại của phần mềm.
+</p>
+<p>
++ <code >latest</code>
+: Là phiên bản mới cập nhật mới nhất.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success",
+    "current": "v0.0.2-release_beta",
+    "latest": "v0.0.1-beta"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -1,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_download_update">	<header>2.8. download update</header>
+<p>
+Yêu cầu tải xuống bản cập nhật mới nhất, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/admin/download_update</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -1,
+    "msg": "Administrator does not have privileges"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_install_update">	<header>2.9. install update</header>
+<p>
+Yêu cầu cài đặt cập nhật đã được tải xuống, sau khi cài đặt xong thì hệ thống sẽ khởi động lại nên sẽ không có kết quả phản hồi khi hệ thống đang được khởi động lại, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/admin/install_update</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ phản hồi lại 'code' là 0 và 'msg' là 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -1,
     "msg": "Administrator does not have privileges"
 }
 	</code>
@@ -2843,6 +3118,10 @@ Yêu cầu thực hiện xóa thư mục hoặc tập tin trong hosting, cho ph�
 + <code >path</code>
 : Thông tin đường dẫn của thư mục hoặc tập tin cần được xóa.
 </p>
+<p>
++ <code >all</code>
+: Nếu đường dẫn là thư mục thì nếu trường all bằng True sẽ xóa tất nội dung con trong thư mục nhưng sẽ ko xóa thư mục, nếu all bằng False thì sẽ xóa thư mục và cả nội dung con.
+</p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
 	<th>Headers</th>
@@ -3884,7 +4163,7 @@ Trường hợp xóa hosting thất bại.
 
 </section>
 <header id="error_list">Error list</header>
-<section class="main-section" id="">	<h2>E_SUCCESS</h2>
+<section class="main-section" id="">	<h2>SUCCESS</h2>
 <p>
 + <code >code</code>
 : 0
@@ -3896,122 +4175,38 @@ Trường hợp xóa hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_SUBDOMAIN_READY</h2>
+<section class="main-section" id="">	<h2>E_ADMINISTRATOR_NOT_PRIVILEGES</h2>
 <p>
 + <code >code</code>
 : -1
 </p>
 <p>
 + <code >msg</code>
-: Subdomain already exists
+: Administrator is not privileges
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_SUBDOMAIN_EMPTY</h2>
+<section class="main-section" id="">	<h2>E_LOCKED_FUNCTIONAL</h2>
 <p>
 + <code >code</code>
 : -2
 </p>
 <p>
 + <code >msg</code>
-: Subdomain is empty
+: The locked functional
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_HOSTING_EMPTY</h2>
+<section class="main-section" id="">	<h2>E_UPGRADE_PREMIUM</h2>
 <p>
 + <code >code</code>
 : -3
 </p>
 <p>
 + <code >msg</code>
-: Hosting name is empty
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_HOSTING_WRONG</h2>
-<p>
-+ <code >code</code>
-: -4
-</p>
-<p>
-+ <code >msg</code>
-: Hosting name is wrong
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_UUID_EMPTY</h2>
-<p>
-+ <code >code</code>
-: -5
-</p>
-<p>
-+ <code >msg</code>
-: Token parameter is empty
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_DOMAIN_USED</h2>
-<p>
-+ <code >code</code>
-: -6
-</p>
-<p>
-+ <code >msg</code>
-: Domain already exists
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_UUID_WRONG</h2>
-<p>
-+ <code >code</code>
-: -7
-</p>
-<p>
-+ <code >msg</code>
-: Token parameter is wrong
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_CREATE_CERTFICATE_FAILED</h2>
-<p>
-+ <code >code</code>
-: -8
-</p>
-<p>
-+ <code >msg</code>
-: Create certificate for domain failed
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_INFORMATION_WRONG</h2>
-<p>
-+ <code >code</code>
-: -9
-</p>
-<p>
-+ <code >msg</code>
-: Account information is wrong
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_EMAIL_PHONE_AVAILABLE</h2>
-<p>
-+ <code >code</code>
-: -10
-</p>
-<p>
-+ <code >msg</code>
-: Email information or phone number already exists
+: Upgrade to premium to use this function
 </p>
 <hr>
 
@@ -4019,7 +4214,7 @@ Trường hợp xóa hosting thất bại.
 <section class="main-section" id="">	<h2>E_AUTHENTICATION_WRONG</h2>
 <p>
 + <code >code</code>
-: -11
+: -4
 </p>
 <p>
 + <code >msg</code>
@@ -4028,214 +4223,310 @@ Trường hợp xóa hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_CREATE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_PARAMETER_FORMAT_WRONG</h2>
+<p>
++ <code >code</code>
+: -5
+</p>
+<p>
++ <code >msg</code>
+: Parameter format wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_SOMETHING_WRONG</h2>
+<p>
++ <code >code</code>
+: -6
+</p>
+<p>
++ <code >msg</code>
+: Something wrong
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_EMAIL_READY</h2>
+<p>
++ <code >code</code>
+: -11
+</p>
+<p>
++ <code >msg</code>
+: The email was registered
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_EMAIL_WRONG_FORMAT</h2>
 <p>
 + <code >code</code>
 : -12
 </p>
 <p>
 + <code >msg</code>
-: Create failed
+: The email is in the wrong format
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_REMOVE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_EMAIL_NOT_FOUND</h2>
 <p>
 + <code >code</code>
 : -13
 </p>
 <p>
 + <code >msg</code>
-: Remove failed
+: The email is not found
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_UPDATE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_PASSWORD_WRONG_FORMAT</h2>
 <p>
 + <code >code</code>
 : -14
 </p>
 <p>
 + <code >msg</code>
-: Update failed
+: The password is in the wrong format
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_NO_SUCH_FILE_FOLDER</h2>
+<section class="main-section" id="">	<h2>E_INFORMATION_WRONG</h2>
 <p>
 + <code >code</code>
 : -15
 </p>
 <p>
 + <code >msg</code>
-: No such file or directory
+: The information is wrong
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_PATH_WRONG</h2>
+<section class="main-section" id="">	<h2>E_INFORMATION_EMPTY</h2>
 <p>
 + <code >code</code>
 : -16
 </p>
 <p>
 + <code >msg</code>
-: Path wrong
+: The information is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_FILE_EXISTS</h2>
+<section class="main-section" id="">	<h2>E_EMAIL_PHONE_AVAILABLE</h2>
 <p>
 + <code >code</code>
 : -17
 </p>
 <p>
 + <code >msg</code>
-: File exists
+: Email or phone is available
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_FOLDER_EXISTS</h2>
+<section class="main-section" id="">	<h2>E_USERNAME_NOT_FOUND</h2>
 <p>
 + <code >code</code>
 : -18
 </p>
 <p>
 + <code >msg</code>
-: Folder exists
+: Username not found
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_FILE_NOT_EXISTS</h2>
+<section class="main-section" id="">	<h2>E_PASSWORD_FAILED</h2>
 <p>
 + <code >code</code>
 : -19
 </p>
 <p>
 + <code >msg</code>
-: File does not exist
+: The password is failed
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_FOLDER_NOT_EXISTS</h2>
-<p>
-+ <code >code</code>
-: -20
-</p>
-<p>
-+ <code >msg</code>
-: Directory does not exist
-</p>
-<hr>
-
-</section>
-<section class="main-section" id="">	<h2>E_CREATE_FILE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_TOKEN_EMPTY</h2>
 <p>
 + <code >code</code>
 : -21
 </p>
 <p>
 + <code >msg</code>
-: Creating new file failed
+: Token is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_CREATE_FOLDER_FAILED</h2>
+<section class="main-section" id="">	<h2>E_TOKEN_WRONG</h2>
 <p>
 + <code >code</code>
 : -22
 </p>
 <p>
 + <code >msg</code>
-: Creating new folder failed
+: Token is wrong
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_UPLOAD_FILE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_TOKEN_EXPIRED</h2>
 <p>
 + <code >code</code>
 : -23
 </p>
 <p>
 + <code >msg</code>
-: Upload file failed
+: Expired token
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_EXTENSION_WRONG</h2>
+<section class="main-section" id="">	<h2>E_TOKEN_GENERATION_FAILED</h2>
 <p>
 + <code >code</code>
 : -24
 </p>
 <p>
 + <code >msg</code>
-: Extension of file is wrong
+: Token generation failed
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_ACCESS_DENIED</h2>
+<section class="main-section" id="">	<h2>E_TOKEN_REFER_EMPTY</h2>
 <p>
 + <code >code</code>
 : -25
 </p>
 <p>
 + <code >msg</code>
-: Access denied
+: Reference token is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_ACCESS_MYSQL_FAILED</h2>
+<section class="main-section" id="">	<h2>E_MYSQL_CREATE_DATABASE_FAILED</h2>
 <p>
 + <code >code</code>
-: -26
+: -30
 </p>
 <p>
 + <code >msg</code>
-: Access denied mysql
+: MYSQL create database is failed
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_CREATE_USER_MYSQL_FAILED</h2>
+<section class="main-section" id="">	<h2>E_DATABASE_INFORMATION_EMPTY</h2>
 <p>
 + <code >code</code>
-: -27
+: -31
 </p>
 <p>
 + <code >msg</code>
-: Create user mysql failed
+: The information in the database is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_CREATE_DATABASE_MYSQL_FAILED</h2>
+<section class="main-section" id="">	<h2>E_DATABASE_LIMIT</h2>
 <p>
 + <code >code</code>
-: -28
+: -32
 </p>
 <p>
 + <code >msg</code>
-: Create database mysql failed
+: The number of database has reached the limit
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_GRANT_PRIVILEGES_FAILED</h2>
+<section class="main-section" id="">	<h2>E_DATABASE_ALREADY_EXISTS</h2>
 <p>
 + <code >code</code>
-: -29
+: -33
+</p>
+<p>
++ <code >msg</code>
+: Database already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DATABASE_USERNAME_ALREADY_EXISTS</h2>
+<p>
++ <code >code</code>
+: -34
+</p>
+<p>
++ <code >msg</code>
+: The username in the database already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DATABASE_NOT_FOUND</h2>
+<p>
++ <code >code</code>
+: -35
+</p>
+<p>
++ <code >msg</code>
+: Database is not found
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DATABASE_USERNAME_NOT_FOUND</h2>
+<p>
++ <code >code</code>
+: -36
+</p>
+<p>
++ <code >msg</code>
+: The username in the database is not found
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_MYSQL_CREATE_USER_FAILED</h2>
+<p>
++ <code >code</code>
+: -37
+</p>
+<p>
++ <code >msg</code>
+: MSQL failed create user
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_MYSQL_ACCESS_DENIED</h2>
+<p>
++ <code >code</code>
+: -38
+</p>
+<p>
++ <code >msg</code>
+: MYSQL access denied
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_MYSQL_GRANT_PRIVILEGES_FAILED</h2>
+<p>
++ <code >code</code>
+: -39
 </p>
 <p>
 + <code >msg</code>
@@ -4244,98 +4535,290 @@ Trường hợp xóa hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_PASSWORD_MYSQL_EMPTY</h2>
+<section class="main-section" id="">	<h2>E_HOSTING_NAME_EMPTY</h2>
 <p>
 + <code >code</code>
-: -30
+: -41
 </p>
 <p>
 + <code >msg</code>
-: Password for mysql empty
+: Hosting name is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_DOWNLOAD_FAILED</h2>
+<section class="main-section" id="">	<h2>E_HOSTING_NAME_ALREADY_EXISTS</h2>
 <p>
 + <code >code</code>
-: -31
+: -42
 </p>
 <p>
 + <code >msg</code>
-: Download failed
+: Hosting name is exists
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_REQUEST_FAILED</h2>
+<section class="main-section" id="">	<h2>E_HOSTING_NAME_CHARACTER_SPECIAL</h2>
 <p>
 + <code >code</code>
-: -32
+: -43
 </p>
 <p>
 + <code >msg</code>
-: Request HTTP failed
+: The hosting name contains special characters
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_DATABASE_FULL</h2>
+<section class="main-section" id="">	<h2>E_HOSTING_LIMIT</h2>
 <p>
 + <code >code</code>
-: -33
+: -44
 </p>
 <p>
 + <code >msg</code>
-: Database full
+: The number of hosting has reached the limit
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_FILE_FOLDER_NOT_EXISTS</h2>
+<section class="main-section" id="">	<h2>E_HOSTING_NOT_FOUND</h2>
 <p>
 + <code >code</code>
-: -34
+: -45
 </p>
 <p>
 + <code >msg</code>
-: File or Folder does not exist
+: The hosting is not found
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_DATABASE_USER_PASSWORD_EMPTY</h2>
+<section class="main-section" id="">	<h2>E_WORDPRESS_DOWNLOAD_FAILED</h2>
 <p>
 + <code >code</code>
-: -35
+: -51
 </p>
 <p>
 + <code >msg</code>
-: Database username or password empty
+: Wordpress download is failed
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_REMOVE_DATABASE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_WORDPRESS_INFORMATIONG_EMPTY</h2>
 <p>
 + <code >code</code>
-: -36
+: -52
 </p>
 <p>
 + <code >msg</code>
-: Remove database fail
+: The information in the wordpress is empty
 </p>
 <hr>
 
 </section>
-<section class="main-section" id="">	<h2>E_REMOVE_USER_DATABASE_FAILED</h2>
+<section class="main-section" id="">	<h2>E_PARAMETER_PATH_EMPTY</h2>
 <p>
 + <code >code</code>
-: -37
+: -61
 </p>
 <p>
 + <code >msg</code>
-: Remove user database fail
+: The parameter path is empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_PARAMETER_PATH_NOT_FOUND</h2>
+<p>
++ <code >code</code>
+: -62
+</p>
+<p>
++ <code >msg</code>
+: The parameter path is not found
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_NO_SUCH_FILE_OR_FOLDER</h2>
+<p>
++ <code >code</code>
+: -63
+</p>
+<p>
++ <code >msg</code>
+: No such file or folder
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FOLDER_EXISTS</h2>
+<p>
++ <code >code</code>
+: -64
+</p>
+<p>
++ <code >msg</code>
+: Folder is exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FOLDER_NOT_EXISTS</h2>
+<p>
++ <code >code</code>
+: -65
+</p>
+<p>
++ <code >msg</code>
+: Folder is not exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FILE_EXISTS</h2>
+<p>
++ <code >code</code>
+: -66
+</p>
+<p>
++ <code >msg</code>
+: File is exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_FILE_NOT_EXISTS</h2>
+<p>
++ <code >code</code>
+: -67
+</p>
+<p>
++ <code >msg</code>
+: File is not exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_UPLOAD_FILE_FAILED</h2>
+<p>
++ <code >code</code>
+: -68
+</p>
+<p>
++ <code >msg</code>
+: Upload file is failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_EXTRACT_EXTENSION_FAILED</h2>
+<p>
++ <code >code</code>
+: -69
+</p>
+<p>
++ <code >msg</code>
+: Only accepts the extension is 'zip', 'bztar', 'tar', 'xztar'
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DOMAIN_ALREADY_EXISTS</h2>
+<p>
++ <code >code</code>
+: -71
+</p>
+<p>
++ <code >msg</code>
+: Domain already exists
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DOMAIN_CERTIFICATE_GENERATION_FAILED</h2>
+<p>
++ <code >code</code>
+: -72
+</p>
+<p>
++ <code >msg</code>
+: Creating a certificate for the domain failed
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_DOMAIN_INFORMATION_EMPTY</h2>
+<p>
++ <code >code</code>
+: -73
+</p>
+<p>
++ <code >msg</code>
+: Domain information is empty
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ADMIN_DEPARTMENT_WRONG</h2>
+<p>
++ <code >code</code>
+: -81
+</p>
+<p>
++ <code >msg</code>
+: Only accepts Business/Technical for 'department' parameter
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ADMIN_LEVEL_WRONG</h2>
+<p>
++ <code >code</code>
+: -82
+</p>
+<p>
++ <code >msg</code>
+: Only accepts High/Middle/Low for 'level' parameter
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ADMIN_NO_CUSTOMER</h2>
+<p>
++ <code >code</code>
+: -83
+</p>
+<p>
++ <code >msg</code>
+: No customer for get
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_ADMIN_MISSING_LEVEL_DEPARTMENT</h2>
+<p>
++ <code >code</code>
+: -84
+</p>
+<p>
++ <code >msg</code>
+: Missing 'level' or 'department'
+</p>
+<hr>
+
+</section>
+<section class="main-section" id="">	<h2>E_PHP_CONFIGURE_VERSION_INVALID</h2>
+<p>
++ <code >code</code>
+: -91
+</p>
+<p>
++ <code >msg</code>
+: Version PHP invaild
 </p>
 <hr>
 
