@@ -1,10 +1,10 @@
 number_hosting=1
 number_databases=2
-feature_hosting=true     
-feature_database=true      
-feature_wordpress=true    
-feature_file_manager=true   
-feature_ssl_manager=false  
+feature_hosting=true
+feature_database=true
+feature_wordpress=true
+feature_file_manager=true
+feature_ssl_manager=false
 feature_domain_parked=false
 feature_domain_redirect=true
 feature_domain_subdomain=false
