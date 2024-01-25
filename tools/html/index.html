@@ -866,20 +866,28 @@ Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin e
 : Phân quyền cho tài khoản mới với 1. HIGH, 2.MIDDLE, 3.LOW.
 </p>
 <p>
-+ <code >Note</code>
++ <code >    Note</code>
 : Thông tin về các cấp phân quyền dành cho tài khoản quản trị viên.
 </p>
 <p>
-+ <code >1 - PRIORITY HIGH</code>
++ <code >      1 - PRIORITY HIGH</code>
 : Cho phép thêm/xóa/sửa tất cả tài khoản của ADMIN, lấy danh sách các ADMIN, cập nhật chức năng cho USER và can thiệt vào hệ thống như khởi động lại hệ thống.
 </p>
 <p>
-+ <code >2 - PRIORITY MIDDLE</code>
++ <code >      2 - PRIORITY MIDDLE</code>
 : Cho phép thêm/xóa/sửa các tài khoản của ADMIN và cập nhật chức năng cho USER
 </p>
 <p>
-+ <code >3 - PRIORITY LOW</code>
++ <code >      3 - PRIORITY LOW</code>
 : Cho phép cập nhật chức năng của tài khoản khoản người dùng, lấy tất cả danh sách người dùng.
+</p>
+<p>
++ <code >department</code>
+: Bộ phận được phân quyền của quản trị viên có 2 bộ phận được sử dụng 'technical' và 'business
+</p>
+<p>
++ <code >fullname</code>
+: Tên đầy đủ của quản trị viên để đăng ký với hệ thống
 </p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
@@ -905,7 +913,9 @@ Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin e
 {
     "email_phone": "admin@gmail.com",
     "password": "abc1234@",
-    "priority": 3
+    "level": "high",
+    "department": "technical",
+    "fullname": "Vu Minh Duc"
 }
 	</code>
 </pre>
@@ -941,7 +951,9 @@ Nếu thực hiện yêu cầu thanh công trả 'code' là 0 và 'msg' là 'Suc
 	<code class="language-json content_code">
 {
     "code": 0,
-    "msg": "Success"
+    "msg": "Success",
+    "username": "adm_OVWvFg",
+    "token": "51545f3d2c60621575528f1d0d8d3868d941"
 }
 	</code>
 </pre>
@@ -1078,8 +1090,36 @@ Yêu cầu cập nhật tài khoản admin thông tin cập nhật bao gồm new
 : Nếu cập nhật mật khẩu mới cho tài khoản admin
 </p>
 <p>
-+ <code >new_priority</code>
-: Nếu cập nhật phân quyền mới cho tài khoản admin
++ <code >name</code>
+: Cập nhật lại tên đầy đủ của quản trị viên
+</p>
+<p>
++ <code >level</code>
+: Phân quyền quản trị cho quản trị viên
+</p>
+<p>
++ <code >admin_create</code>
+: Phân quyền cho phép đăng ký mới quản trị viên (true/false).
+</p>
+<p>
++ <code >admin_update</code>
+: Phân quyền cho phép cập nhật cho quản trị viên (true/false).
+</p>
+<p>
++ <code >admin_remove</code>
+: Phân quyền cho phép xóa quản trị viên (true/false)
+</p>
+<p>
++ <code >admin_get</code>
+: Phân quyền cho phép lấy thông tin của tất cả quản trị viên (true/false)
+</p>
+<p>
++ <code >user_update</code>
+: Phân quyền cho phép cập nhật thông tin của người dùng (true/false)
+</p>
+<p>
++ <code >user_get</code>
+: Phân quyền cho phép lấy thông tin của tất cả người dùng (true/false)
 </p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
@@ -1105,7 +1145,14 @@ Yêu cầu cập nhật tài khoản admin thông tin cập nhật bao gồm new
 {
     "username": "o5ClWu",
     "new_password": "abc1234@",
-    "new_priority": 1
+    "level": "high",
+    "name": "Vu Minh Duc",
+    "admin_create": true,
+    "admin_update": true,
+    "admin_remove": true,
+    "admin_get": true,
+    "user_update": true,
+    "user_get": true
 }
 	</code>
 </pre>
@@ -2548,7 +2595,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 </section>
 <section class="main-section" id="get_token">	<header>7.2. get token</header>
 <p>
-Yêu cầu lấy lại token xác thực tài khoản, để thực hiện yêu cầu thành công cần phải cung cấp lại username và password của tài khoản đã đăng ký, thông tin username và password được mã hóa bằng base64 được đính kèm trong header Auth, kết quả trả về gồm mã lỗi nếu thành công là 0 và token xác thực của tài khoản.
+Yêu cầu lấy lại token xác thực tài khoản, để thực hiện yêu cầu thành công cần phải cung cấp lại username/email và password của tài khoản đã đăng ký, thông tin username/email và password được mã hóa bằng base64 được đính kèm trong header Auth, kết quả trả về gồm mã lỗi nếu thành công là 0 và token xác thực của tài khoản.
 </p>
 <h3>Request</h3>
 <div  style="padding-left: 20px;">
@@ -2615,7 +2662,7 @@ Nếu thực hiện lấy thông tin token thành công.
 {
     "code": 1,
     "token": "899491edeea91cef7d59d0f3912f9701",
-    "msg": "Get token account successfully."
+    "msg": "successfully."
 }
 	</code>
 </pre>
