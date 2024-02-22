@@ -361,6 +361,10 @@ p {
 </li>
 <ul>
 	<li>
+	<a class="nav-link" href="#signin">signin</a>
+
+</li>
+<li>
 	<a class="nav-link" href="#get_user">get user</a>
 
 </li>
@@ -870,15 +874,15 @@ Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin e
 : Thông tin về các cấp phân quyền dành cho tài khoản quản trị viên.
 </p>
 <p>
-+ <code >      1 - PRIORITY HIGH</code>
++ <code >      high</code>
 : Cho phép thêm/xóa/sửa tất cả tài khoản của ADMIN, lấy danh sách các ADMIN, cập nhật chức năng cho USER và can thiệt vào hệ thống như khởi động lại hệ thống.
 </p>
 <p>
-+ <code >      2 - PRIORITY MIDDLE</code>
++ <code >      middle</code>
 : Cho phép thêm/xóa/sửa các tài khoản của ADMIN và cập nhật chức năng cho USER
 </p>
 <p>
-+ <code >      3 - PRIORITY LOW</code>
++ <code >      low</code>
 : Cho phép cập nhật chức năng của tài khoản khoản người dùng, lấy tất cả danh sách người dùng.
 </p>
 <p>
@@ -2475,7 +2479,132 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 
 </section>
 <header id="get">7. Get</header>
-<section class="main-section" id="get_user">	<header>7.1. get user</header>
+<section class="main-section" id="signin">	<header>7.1. signin</header>
+<p>
+Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải được xác thực bằng tài khoản người dùng và mật khẩu.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/user/signin</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Basic Base64(username:password)</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng.
+</p>
+<p>
++ <code >hosting</code>
+: Danh sách các hosting mà người dùng đang sở hữu.
+</p>
+<p>
++ <code >storage</code>
+: Thông tin về dung lượng ổ cứng mà người dùng đang sở hữu, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng chưa sử dụng và phần trăm.
+</p>
+<p>
++ <code >bandwidth</code>
+: Thông tin về băng thông mà người dùng đã sử dụng.
+</p>
+<p>
++ <code >innodes</code>
+: Số lượng tập tin mà người dùng đã tải lên tất cả hosting mà người dùng quản lý
+</p>
+<p>
++ <code >access_token</code>
+: Là token xác thực của tài khoản người dùng
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "data": {
+        "username": "IWfMg1",
+        "hosting": [
+            "smarthome.webappgiare.vn"
+        ],
+        "storage": {
+            "size": "974M",
+            "used": "44K",
+            "avail": "907M",
+            "percent": "1%"
+        },
+        "bandwidth": {},
+        "innodes": {
+            "files": 3
+        },
+        "access_token": "4543173b2d0a4379041738f30506ac75d941"
+    },
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token paremeter is wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="get_user">	<header>7.2. get user</header>
 <p>
 Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải cung cấp token để xác thực tài khoản người dùng
 </p>
@@ -2593,7 +2722,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="get_token">	<header>7.2. get token</header>
+<section class="main-section" id="get_token">	<header>7.3. get token</header>
 <p>
 Yêu cầu lấy lại token xác thực tài khoản, để thực hiện yêu cầu thành công cần phải cung cấp lại username/email và password của tài khoản đã đăng ký, thông tin username/email và password được mã hóa bằng base64 được đính kèm trong header Auth, kết quả trả về gồm mã lỗi nếu thành công là 0 và token xác thực của tài khoản.
 </p>
@@ -2682,7 +2811,7 @@ Nếu thực hiện lấy thông tin token không thành công.
 <hr>
 
 </section>
-<section class="main-section" id="get_profile">	<header>7.3. get profile</header>
+<section class="main-section" id="get_profile">	<header>7.4. get profile</header>
 <p>
 Yêu cầu lấy thông tin profile của người dùng, profile chứa thông tin các chức năng sử dụng của tài khoản
 </p>
@@ -3677,6 +3806,22 @@ Tạo tài khoản để cho phép phân quyền sử dụng tài nguyên của 
 <p>
 + <code >profile</code>
 : là phân loại người dùng theo các gói sử dụng như 'basic', 'premium' hoặc 'custom' các gói sẽ cho phép giới hạn quyền sử dụng chức năng của mỗi tài khoản.
+</p>
+<p>
++ <code >Note</code>
+: Thông tin về phân quyền dành cho tài khoản người dùng
+</p>
+<p>
++ <code >basic</code>
+: Gói basic giới hạn số lượng HOSTING là 1, số lượng DATABASE là 2, các chức năng bị giới hạn là quản lý SSL (SSL MANAGER), không sử dụng được chức năng DOMAIN PARKED, không sử dụng được SUBDOMAIN trong hosting và chức năng chuyền file thông qua FTP bị khóa. Các chức năng khác như WORDPRESS, quản lý file (FILE MANAGER), chuyển tiếp tên miền (DOMAIN redirect) được sử dụng trong gói basic.
+</p>
+<p>
++ <code >premium</code>
+: Gói premium giới hạn số lượng HOSTING được tạo là 2 và số lượng DATABASE được tạo là 4 ngoài ra các chức năng bị hạn chế ở gói basic đều có thể sử dụng ở gói premium.
+</p>
+<p>
++ <code >custom</code>
+: Khi người dùng đang ở gói basic hoặc premium mà thực hiện thay đổi số lượng hay chức năng của hosting thì sẽ chuyển sang gói custom
 </p>
 <p>
 + <code >email</code>

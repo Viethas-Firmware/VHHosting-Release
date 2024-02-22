@@ -93,6 +93,7 @@ try:
 	server				= ThreadBaseServer(("172.16.1.244", 2440), SERVER)
 
 	sslcontext			= ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+	# sslcontext			= ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 	sslcontext.load_cert_chain(
 		keyfile			= PATH_CERT_SUBDOMAIN_KEY,
 		certfile		= PATH_CERT_SUBDOMAIN_FILE
