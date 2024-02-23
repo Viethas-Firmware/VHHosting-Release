@@ -449,6 +449,10 @@ p {
 	<a class="nav-link" href="#hosting_remove">remove</a>
 
 </li>
+<li>
+	<a class="nav-link" href="#hosting_reset">reset</a>
+
+</li>
 
 </ul>
 
@@ -3298,6 +3302,10 @@ Yêu cầu thực hiện xóa thư mục hoặc tập tin trong hosting, cho ph�
 + <code >all</code>
 : Nếu đường dẫn là thư mục thì nếu trường all bằng True sẽ xóa tất nội dung con trong thư mục nhưng sẽ ko xóa thư mục, nếu all bằng False thì sẽ xóa thư mục và cả nội dung con.
 </p>
+<p>
++ <code >lưu ý</code>
+: Trường all chỉ được sử dụng khi "path" là đường dẫn tới thư mục, nếu "path" là đường dẫn tới tập tin hay nhiều tập tin và thư mục thì sẽ không bị ảnh hưởng.
+</p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
 	<th>Headers</th>
@@ -3321,8 +3329,7 @@ Yêu cầu thực hiện xóa thư mục hoặc tập tin trong hosting, cho ph�
 	<code class="language-json content_code">
 {
     "hosting": "smarthome.webappgiare.vn",
-    "path": "assets/hello.txt;index.html;tmp/",
-    "is_dir": false
+    "path": "assets/hello.txt;index.html;tmp/"
 }
 	</code>
 </pre>
@@ -4346,6 +4353,101 @@ Trường hợp xóa hosting thất bại.
 {
     "code": 1,
     "msg": "Hosting remove failed."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="hosting_reset">	<header>10.3. reset</header>
+<p>
+Yêu cầu thực hiện thiết lập lại cấu hình và hosting về chế độ mặc định giống như lúc mới tạo hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/hosting/v1/reset</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên hosting cần reset cấu hình trong tài khoản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp reset hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trường hợp reset hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -45,
+    "msg": "The hosting is not found"
 }
 	</code>
 </pre>
