@@ -434,6 +434,10 @@ p {
 	<a class="nav-link" href="#account_update">update</a>
 
 </li>
+<li>
+	<a class="nav-link" href="#account_check_available">check_available</a>
+
+</li>
 
 </ul>
 <li>
@@ -451,6 +455,10 @@ p {
 </li>
 <li>
 	<a class="nav-link" href="#hosting_reset">reset</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#hosting_check_available">check_available</a>
 
 </li>
 
@@ -4160,6 +4168,90 @@ Trường hợp cập nhật thông tin không thành công sẽ phản hồi v�
 <hr>
 
 </section>
+<section class="main-section" id="account_check_available">	<header>9.4. check_available</header>
+<p>
+Yêu cầu thực hiện kiểm tra thông tin số điện thoại hoặc địa chỉ email đã được đăng ký tài khoản chưa?. Nếu kết quả trả về là code là 0 thì tài khoản chưa được sử dụng, nếu kết quả trả về code khác 0 thì tài khoản đã được sử dụng hoặc có thể đã xảy ra lỗi.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/user/check_available</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp xóa tài khoản phân quyền thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trường hợp xóa không thành công sẽ trả về mã lỗi và nội dung của lỗi gây ra việc xóa không thành công.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 17,
+    "msg": "Email or phone is available."
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
 <header id="hosting">10. Hosting</header>
 <section class="main-section" id="hosting_create">	<header>10.1. create</header>
 <p>
@@ -4456,6 +4548,101 @@ Trường hợp reset hosting thất bại.
 <hr>
 
 </section>
+<section class="main-section" id="hosting_check_available">	<header>10.4. check_available</header>
+<p>
+Yêu cầu thực hiện kiểm tra thông tin của tên hosting đã được đăng ký sử dụng hay chưa?
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/hosting/v1/check_available</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >subdomain</code>
+: Tên subdomain cần được kiểm tra
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "subdomain": "smarthome.webappgiare.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp reset hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trường hợp reset hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "vcode": -42,
+    "msg": "Hosting name is exists"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
 <header id="error_list">Error list</header>
 <section class="main-section" id="">	<h2>SUCCESS</h2>
 <p>
@@ -4541,6 +4728,18 @@ Trường hợp reset hosting thất bại.
 <hr>
 
 </section>
+<section class="main-section" id="">	<h2>E_EMAIL_PHONE_WRONG_FORMAT</h2>
+<p>
++ <code >code</code>
+: 10
+</p>
+<p>
++ <code >msg</code>
+: The email or phone number is wrong format
+</p>
+<hr>
+
+</section>
 <section class="main-section" id="">	<h2>E_EMAIL_READY</h2>
 <p>
 + <code >code</code>
@@ -4616,7 +4815,7 @@ Trường hợp reset hosting thất bại.
 <section class="main-section" id="">	<h2>E_EMAIL_PHONE_AVAILABLE</h2>
 <p>
 + <code >code</code>
-: -17
+: 17
 </p>
 <p>
 + <code >msg</code>
@@ -4628,7 +4827,7 @@ Trường hợp reset hosting thất bại.
 <section class="main-section" id="">	<h2>E_USERNAME_NOT_FOUND</h2>
 <p>
 + <code >code</code>
-: -18
+: 18
 </p>
 <p>
 + <code >msg</code>
@@ -4640,7 +4839,7 @@ Trường hợp reset hosting thất bại.
 <section class="main-section" id="">	<h2>E_PASSWORD_FAILED</h2>
 <p>
 + <code >code</code>
-: -19
+: 19
 </p>
 <p>
 + <code >msg</code>
