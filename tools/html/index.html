@@ -3632,6 +3632,14 @@ Yêu cầu thực hiện tải tập tin lên hosting.
 + <code >file</code>
 : Tập tin cần được tải lên.
 </p>
+<p>
++ <code >autounzip</code>
+: Trường này cho phép tự động giải nén các tập tin là file nén như [zip, bztar, tar, xztar]
+</p>
+<p>
++ <code >autoremove</code>
+: Trường này cho phép tự động xóa tất cả tập tin hoặc thư mục trong đường dẫn path. Lưu ý khi sử dụng trường này sẽ thực hiện xóa tất cả trước rồi mới tải file lên trong đường dẫn.
+</p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
 	<th>Headers</th>
@@ -3656,7 +3664,9 @@ Yêu cầu thực hiện tải tập tin lên hosting.
 {
     "hosting": "smarthome.webappgiare.vn",
     "path": "/assest/",
-    "file": "C:/Users/ABC/Desktop/hello.txt"
+    "file": "C:/Users/ABC/Desktop/hello.txt",
+    "autounzip": "true",
+    "autoremove": "true"
 }
 	</code>
 </pre>
