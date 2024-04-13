@@ -11,6 +11,7 @@ from socketserver                   import ThreadingMixIn
 from http.server                    import HTTPServer
 
 from src.log						import LOG, ACCESS
+from src.cert						import CERT
 from src.server                     import SERVER
 from src.define                     import *
 
@@ -25,6 +26,7 @@ from src.system.db.mysql            import MYSQL
 from src.system.db.db_user          import DB_USER
 from src.system.db.db_hosting       import DB_HOSTING
 
+from multiprocessing.shared_memory	import ShareableList
 
 
 class ThreadBaseServer(ThreadingMixIn, HTTPServer): ...
@@ -53,6 +55,28 @@ try:
 	# thực hiện chạy tiến trình backup
 	p_backup		= Process(target=process_backup)
 	p_backup.start()
+	# khởi tạo tiến trình chạy tạo chứng chỉ
+	# 0				là cờ kiểm tra khối tạo chứng chỉ có đang được sử dụng ko
+	# 1				là giá trị để khối kiểm tra có quyết định chạy hay dừng
+	#				- 0:	trang thai khoi tao.
+	#				- 1:	trang thai cho.
+	#				- 2:	xac thuc thanh cong.
+	#				- 3:	xac thuc khong thanh cong.
+	# 2				là dữ liệu token để dùng xác thực.
+	# 3				là domain cần để tạo chứng chỉ
+	# 4				co cap nhat du lieu True du lieu da cap nhat False
+	# 5				đường dẫn tới thư mục chứa chứng chỉ
+	shm_share_list			= ShareableList([False, 0, 
+								   "00000000000000000000000000000000000000000000000000", 
+								   "0000000000000000000000000000000000000000",
+								   False,
+								   "000000000000000000000000000000000000000000000000000000000000"
+								   ])
+	id_memory_share			= shm_share_list.shm.name
+	CERT.ID_MEMORY_SHARED	= id_memory_share
+
+	p_certificate	= Process(target=CERT.run, args=(id_memory_share, ))
+	p_certificate.start()
 	# khi chương trình chạy thực hiện ghi lại các thông tin của chương trình trong access.log
 	now				= datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	ACCESS.append(f"===> start on {now}.")
@@ -102,6 +126,9 @@ try:
 	server.serve_forever()
 	
 	p_backup.kill()
+	p_certificate.kill()
+
+	shm_share_list.shm.close()
 except Exception as e:
 	_, _, exc_tb = sys.exc_info()
 	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
