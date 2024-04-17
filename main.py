@@ -25,6 +25,15 @@ from src.system.backup				import BACKUP
 from src.system.db.mysql            import MYSQL
 from src.system.db.db_user          import DB_USER
 from src.system.db.db_hosting       import DB_HOSTING
+from src.system.db.db_database		import DB_DATABASE
+from src.system.db.db_feature		import DB_FEATURE
+from src.system.db.db_domain		import DB_DOMAIN
+
+from src.system.db.db_php			import DB_PHP
+from src.system.db.db_ssl			import DB_SSL
+
+from src.system.db.db_admin			import DB_ADMIN
+from src.system.db.db_admin_ruler	import DB_ADMIN_RULER
 
 from multiprocessing.shared_memory	import ShareableList
 
@@ -97,6 +106,16 @@ try:
 	# load thông tin customer
 	db_user			= DB_USER()
 	db_hosting		= DB_HOSTING()
+
+	DB_FEATURE()
+	DB_DATABASE()
+	DB_DOMAIN()
+	
+	DB_PHP()
+	DB_SSL()
+
+	DB_ADMIN()
+	DB_ADMIN_RULER()
 
 	customers		= db_user.get()
 	# duyệt thông tin người dùng

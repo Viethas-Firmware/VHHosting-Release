@@ -242,6 +242,17 @@ p {
 	<div  >
 	<ul>
 	<li>
+	<a class="nav-link" href="#ssl manager">SSL Manager</a>
+
+</li>
+<ul>
+	<li>
+	<a class="nav-link" href="#ssl_manager_generate">generate</a>
+
+</li>
+
+</ul>
+<li>
 	<a class="nav-link" href="#php configure">PHP Configure</a>
 
 </li>
@@ -310,6 +321,10 @@ p {
 <ul>
 	<li>
 	<a class="nav-link" href="#domain_redirect">redirect</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#domain_remove_redirect">remove_redirect</a>
 
 </li>
 
@@ -389,6 +404,14 @@ p {
 </li>
 <li>
 	<a class="nav-link" href="#file_manager_new">new</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_copy_file">copy_file</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#file_manager_move_file">move_file</a>
 
 </li>
 <li>
@@ -474,8 +497,104 @@ p {
 URL:   <code class="code-url">https://developer.webappgiare.vn:2440</code>
 
 </p>
-<header id="php configure">1. PHP Configure</header>
-<section class="main-section" id="php_configure">	<header>1.1. configure</header>
+<header id="ssl manager">1. SSL Manager</header>
+<section class="main-section" id="ssl_manager_generate">	<header>1.1. generate</header>
+<p>
+Yêu cầu cấp chứng chỉ miễn phí cho tên miền. Lưu ý việc cấp chứng chỉ này cần đươc xác thực tên miền thông qua DNS record và thời hạn của chứng chỉ là 3 tháng, hết 3 tháng cần phải cấp phát mới.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/ssl/generate</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "domain": "iqviet.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -74,
+    "msg": "[DNS] record TXT _acme-challenge xxx26170706769617xxx;"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="php configure">2. PHP Configure</header>
+<section class="main-section" id="php_configure">	<header>2.1. configure</header>
 <p>
 Yều cầu cấu hình và thiết lập các thông số của PHP.
 </p>
@@ -645,7 +764,7 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <hr>
 
 </section>
-<section class="main-section" id="php_restore">	<header>1.2. restore</header>
+<section class="main-section" id="php_restore">	<header>2.2. restore</header>
 <p>
 Khôi phục các cấu hình mặc định của PHP trong hosting.
 </p>
@@ -740,7 +859,7 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <hr>
 
 </section>
-<section class="main-section" id="php_get_configure">	<header>1.3. get configure</header>
+<section class="main-section" id="php_get_configure">	<header>2.3. get configure</header>
 <p>
 Lấy thông tin các trường cấu hình trong cấu hình PHP của hosting
 </p>
@@ -855,8 +974,8 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <hr>
 
 </section>
-<header id="admin">2. Admin</header>
-<section class="main-section" id="admin_create">	<header>2.1. create</header>
+<header id="admin">3. Admin</header>
+<section class="main-section" id="admin_create">	<header>3.1. create</header>
 <p>
 Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin email/phone và password để tạo tài khoản, ngoài ra cần phải có token của admin có phân quyền tạo tài khoản mới được cho phép tạo.
 </p>
@@ -989,7 +1108,7 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <hr>
 
 </section>
-<section class="main-section" id="admin_remove">	<header>2.2. remove</header>
+<section class="main-section" id="admin_remove">	<header>3.2. remove</header>
 <p>
 Yêu cầu xóa tài khoản admin, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
 </p>
@@ -1084,7 +1203,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_update">	<header>2.3. update</header>
+<section class="main-section" id="admin_update">	<header>3.3. update</header>
 <p>
 Yêu cầu cập nhật tài khoản admin thông tin cập nhật bao gồm new_password và new_priority, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
 </p>
@@ -1224,7 +1343,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_update_feature">	<header>2.4. update_feature</header>
+<section class="main-section" id="admin_update_feature">	<header>3.4. update_feature</header>
 <p>
 Yêu cầu thực hiện cập nhật các chức năng của tài khoản người dùng thông qua quản trị viên, có thế cập nhật từng chức năng hoặc nhiều chức năng cùng lúc.
 </p>
@@ -1373,7 +1492,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_get_all_admin">	<header>2.5. get all administration</header>
+<section class="main-section" id="admin_get_all_admin">	<header>3.5. get all administration</header>
 <p>
 Yêu cầu cho phép lấy danh sách của tất cả quản trị viên.
 </p>
@@ -1473,7 +1592,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_get_all_user">	<header>2.6. get all user</header>
+<section class="main-section" id="admin_get_all_user">	<header>3.6. get all user</header>
 <p>
 Yêu cầu thực hiện lấy danh sách tất cả người dùng trong hệ thống, để thực hiện được yêu cầu QTV cần phải được phân quyền.
 </p>
@@ -1598,7 +1717,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_check_release">	<header>2.7. check release</header>
+<section class="main-section" id="admin_check_release">	<header>3.7. check release</header>
 <p>
 Yêu cầu kiểm tra thông tin cập nhật, yêu cầu này chỉ thực hiện được khi qtv được phân quyền ở mức cao nhất.
 </p>
@@ -1692,7 +1811,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_download_update">	<header>2.8. download update</header>
+<section class="main-section" id="admin_download_update">	<header>3.8. download update</header>
 <p>
 Yêu cầu tải xuống bản cập nhật mới nhất, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
 </p>
@@ -1776,7 +1895,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_install_update">	<header>2.9. install update</header>
+<section class="main-section" id="admin_install_update">	<header>3.9. install update</header>
 <p>
 Yêu cầu cài đặt cập nhật đã được tải xuống, sau khi cài đặt xong thì hệ thống sẽ khởi động lại nên sẽ không có kết quả phản hồi khi hệ thống đang được khởi động lại, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
 </p>
@@ -1860,10 +1979,10 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<header id="domain">3. Domain</header>
-<section class="main-section" id="domain_redirect">	<header>3.1. redirect</header>
+<header id="domain">4. Domain</header>
+<section class="main-section" id="domain_redirect">	<header>4.1. redirect</header>
 <p>
-Yêu cầu chuyển hướng tên miền tới hosting, để yêu cầu thực hiện thành công cần tham số hosting là host mà tên miền cần được chuyển hướng, domain là tên của người dùng cần chuyển hướng.
+Yêu cầu chuyển hướng tên miền tới hosting, để yêu cầu thực hiện thành công cần tham số hosting là host mà tên miền cần được chuyển hướng, domain là tên của người dùng cần chuyển hướng. Các thực hiện sẽ như sau khi thực hiện yêu cầu lần đầu tiên thì API sẽ trả về các thông tin yêu cầu thêm bản ghi DNS cho domain nếu domain thiếu các thông tin sau: A @ 115.78.228.208; TXT _vhdomainconnect xxx134125xxx;
 </p>
 <h3>Request</h3>
 <div  style="padding-left: 20px;">
@@ -1946,13 +2065,13 @@ Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông b
 	</code>
 </pre>
 <p>
-Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã lỗi ở bảng ERROR_LIST bên dưới và nội dung của lỗi.
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
 </p>
 <pre>
 	<code class="language-json content_code">
 {
-    "code": -7,
-    "msg": "Token parameter is empty"
+    "code": -74,
+    "msg": "[DNS] record TXT _vhdomainconnect 77656261707067696172652e766e;"
 }
 	</code>
 </pre>
@@ -1961,8 +2080,108 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<header id="ftp">4. FTP</header>
-<section class="main-section" id="ftp_get">	<header>4.1. get</header>
+<section class="main-section" id="domain_remove_redirect">	<header>4.2. remove_redirect</header>
+<p>
+Yêu cầu hủy chuyển hướng tên miền tới hosting
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/domain/remove_redirect</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting mà tên miền cần chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "domain": "iqviet.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trong trường hợp tên miền chưa được chuyển hướng tới hosting hoặc được chuyển hướng tới một hosting khác thì sẽ phản hồi về mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -77,
+    "msg": "The domain name has not been redirected to hosting"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<header id="ftp">5. FTP</header>
+<section class="main-section" id="ftp_get">	<header>5.1. get</header>
 <p>
 Yêu cầu lấy thông tin cấu hình của FTP của người dùng.
 </p>
@@ -2066,8 +2285,8 @@ Nếu thực hiện yêu cầu thất bại sẽ trả về mã lỗi, tra cứu
 <hr>
 
 </section>
-<header id="wordpress">5. Wordpress</header>
-<section class="main-section" id="wordpress_install">	<header>5.1. install</header>
+<header id="wordpress">6. Wordpress</header>
+<section class="main-section" id="wordpress_install">	<header>6.1. install</header>
 <p>
 Yêu cầu thực hiện cài đặt wordpress dành cho người dùng, phiên bản wordpress sử dụng là phiên bản mới nhất của wordpress. Thông tin yêu cầu là tên hosting cần cài đặt, tên người dùng và mật khẩu để cài đặt cho csdl.
 </p>
@@ -2182,7 +2401,7 @@ Nếu thực hiện không thành công sẽ trả về mã lỗi và nội dung
 <hr>
 
 </section>
-<section class="main-section" id="wordpress_uninstall">	<header>5.2. uninstall</header>
+<section class="main-section" id="wordpress_uninstall">	<header>6.2. uninstall</header>
 <p>
 Yêu cầu thực hiện gỡ bỏ mã nguồn của wordpress khỏi hosting của người dùng
 </p>
@@ -2282,8 +2501,8 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<header id="database">6. Database</header>
-<section class="main-section" id="database_create">	<header>6.1. create</header>
+<header id="database">7. Database</header>
+<section class="main-section" id="database_create">	<header>7.1. create</header>
 <p>
 Yêu cầu cho phép tạo cơ sở dữ liệu thông qua mysql, yêu cầu cần cung cấp thông tin về hosting tạo csdl và mật khẩu để đăng nhật vào csdl, tên người dùng để đăng nhập vào csdl sẽ là username của tài khoản đã đăng ký, để có thể quản lý các database đã tạo có thể truy cập tên miền https://databases.webappgiare.vn
 </p>
@@ -2394,7 +2613,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="database_delete_user">	<header>6.2. remove</header>
+<section class="main-section" id="database_delete_user">	<header>7.2. remove</header>
 <p>
 Yêu cầu thực hiện xóa csdl của hosting.
 </p>
@@ -2490,8 +2709,8 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<header id="get">7. Get</header>
-<section class="main-section" id="signin">	<header>7.1. signin</header>
+<header id="get">8. Get</header>
+<section class="main-section" id="signin">	<header>8.1. signin</header>
 <p>
 Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải được xác thực bằng tài khoản người dùng và mật khẩu.
 </p>
@@ -2616,7 +2835,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="get_user">	<header>7.2. get user</header>
+<section class="main-section" id="get_user">	<header>8.2. get user</header>
 <p>
 Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải cung cấp token để xác thực tài khoản người dùng
 </p>
@@ -2742,7 +2961,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="get_token">	<header>7.3. get token</header>
+<section class="main-section" id="get_token">	<header>8.3. get token</header>
 <p>
 Yêu cầu lấy lại token xác thực tài khoản, để thực hiện yêu cầu thành công cần phải cung cấp lại username/email và password của tài khoản đã đăng ký, thông tin username/email và password được mã hóa bằng base64 được đính kèm trong header Auth, kết quả trả về gồm mã lỗi nếu thành công là 0 và token xác thực của tài khoản.
 </p>
@@ -2831,7 +3050,7 @@ Nếu thực hiện lấy thông tin token không thành công.
 <hr>
 
 </section>
-<section class="main-section" id="get_profile">	<header>7.4. get profile</header>
+<section class="main-section" id="get_profile">	<header>8.4. get profile</header>
 <p>
 Yêu cầu lấy thông tin profile của người dùng, profile chứa thông tin các chức năng sử dụng của tài khoản
 </p>
@@ -2942,8 +3161,8 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<header id="file manager">8. File Manager</header>
-<section class="main-section" id="file_manager_browser">	<header>8.1. browser</header>
+<header id="file manager">9. File Manager</header>
+<section class="main-section" id="file_manager_browser">	<header>9.1. browser</header>
 <p>
 Yêu cầu này có phép duyệt các tập tin và thư mục của hosting
 </p>
@@ -3078,7 +3297,7 @@ Nếu thực hiện không thành công sẽ trả về mã lỗi và nội dung
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_new">	<header>8.2. new</header>
+<section class="main-section" id="file_manager_new">	<header>9.2. new</header>
 <p>
 Yêu cầu cho phép tạo thư mục hoặc tập tin trong hosting
 </p>
@@ -3183,7 +3402,218 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_rename">	<header>8.3. rename</header>
+<section class="main-section" id="file_manager_copy_file">	<header>9.3. copy_file</header>
+<p>
+Yêu cầu này cho phép người dùng có thể sao chép tập tin tới một vị trí khác.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/copy_file</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin hoặc thư mục cần được sao chép.
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn của tập tin hoặc thư mục cần sao chép.
+</p>
+<p>
++ <code >dest_path</code>
+: Đường dẫn của tập tin hoặc thư mục với tên mới
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt",
+    "dest_path": "/abc/"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công sẽ phản hồi với 'code' là 0 và 'msg' là 'Success'
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_move_file">	<header>9.4. move_file</header>
+<p>
+Yêu cầu này cho phép người dùng có thể di chuyển tập tin tới thư mục khác.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/file_manager/move_file</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Thông tin của hosting của tập tin hoặc thư mục cần được di chuyển.
+</p>
+<p>
++ <code >path</code>
+: Đường dẫn của tập tin cần di chuyển.
+</p>
+<p>
++ <code >dest_path</code>
+: Đường dẫn của thư mục đích.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "path": "/assets/hello.txt",
+    "new_path": "/assets/helloworld.txt",
+    "is_dir": false
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công sẽ phản hồi với 'code' là 0 và 'msg' là 'Success'
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -16,
+    "msg": "Path wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="file_manager_rename">	<header>9.5. rename</header>
 <p>
 Yêu cầu này cho phép người dùng có thể đổi tên cho tập tin hoặc thư mục nằm trong hosting.
 </p>
@@ -3293,7 +3723,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_remove">	<header>8.4. remove</header>
+<section class="main-section" id="file_manager_remove">	<header>9.6. remove</header>
 <p>
 Yêu cầu thực hiện xóa thư mục hoặc tập tin trong hosting, cho phép xóa một tập tin hoặc thư mục hoặc nhiều tập tin và thư mục. LƯU Ý (khi xóa thư mục thì hệ thống sẽ xóa toàn bộ thư mục và tập tin bên trong). Việc xóa nhiều tập tin thì sẽ ngăn cách các đường dẫn bằng ';'
 </p>
@@ -3401,7 +3831,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_edit">	<header>8.5. edit</header>
+<section class="main-section" id="file_manager_edit">	<header>9.7. edit</header>
 <p>
 Yêu cầu cho phép thay đổi nội dung của tập tin nằm trong hosting.
 </p>
@@ -3506,7 +3936,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_get">	<header>8.6. get</header>
+<section class="main-section" id="file_manager_get">	<header>9.8. get</header>
 <p>
 Thực hiện yêu cầu lấy nội dung trong tập tin.
 </p>
@@ -3607,7 +4037,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_upload">	<header>8.7. upload</header>
+<section class="main-section" id="file_manager_upload">	<header>9.9. upload</header>
 <p>
 Yêu cầu thực hiện tải tập tin lên hosting.
 </p>
@@ -3722,7 +4152,7 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<section class="main-section" id="file_manager_extract">	<header>8.8. extract</header>
+<section class="main-section" id="file_manager_extract">	<header>9.10. extract</header>
 <p>
 Yều thực hiện giải nén tập tin .zip .rar ... trên hosting.
 </p>
@@ -3822,8 +4252,8 @@ Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' l
 <hr>
 
 </section>
-<header id="account">9. Account</header>
-<section class="main-section" id="account_create">	<header>9.1. create</header>
+<header id="account">10. Account</header>
+<section class="main-section" id="account_create">	<header>10.1. create</header>
 <p>
 Tạo tài khoản để cho phép phân quyền sử dụng tài nguyên của VPS, yêu cầu phải có username và password. Kết quả trả về là chuỗi token giúp xác thực đối tượng.
 </p>
@@ -3952,7 +4382,7 @@ Nếu thực hiện tạo tài khoản phân quyền THẤT BẠI sẽ phản h�
 <hr>
 
 </section>
-<section class="main-section" id="account_remove">	<header>9.2. remove</header>
+<section class="main-section" id="account_remove">	<header>10.2. remove</header>
 <p>
 Xóa tài khoản phân quyền, khi xóa cần phải chắc chắn các hosting của tài khoản đã được xóa, rồi mới cho phép xóa tài khoản, việc yêu cầu xóa phải được xác thực thông qua token xác thực. Nếu token xác thực chính xác thì HTTP code sẽ phản hồi là 200 còn nếu token xác thực không chính xác hoặc không tồn tại thì HTTP code là 203
 </p>
@@ -4036,7 +4466,7 @@ Trường hợp xóa không thành công sẽ trả về mã lỗi và nội dun
 <hr>
 
 </section>
-<section class="main-section" id="account_update">	<header>9.3. update</header>
+<section class="main-section" id="account_update">	<header>10.3. update</header>
 <p>
 Yêu cầu cập nhật thông tin tài khoản, thông tin cập nhật gồm loại gói tin hoặc các chức năng của tài khoản, có thế cập nhật từng tham số hoặc cập nhật nhiều tham số cùng lúc.
 </p>
@@ -4186,7 +4616,7 @@ Trường hợp cập nhật thông tin không thành công sẽ phản hồi v�
 <hr>
 
 </section>
-<section class="main-section" id="account_check_available">	<header>9.4. check_available</header>
+<section class="main-section" id="account_check_available">	<header>10.4. check_available</header>
 <p>
 Yêu cầu thực hiện kiểm tra thông tin số điện thoại hoặc địa chỉ email đã được đăng ký tài khoản chưa?. Nếu kết quả trả về là code là 0 thì tài khoản chưa được sử dụng, nếu kết quả trả về code khác 0 thì tài khoản đã được sử dụng hoặc có thể đã xảy ra lỗi.
 </p>
@@ -4270,8 +4700,8 @@ Trường hợp xóa không thành công sẽ trả về mã lỗi và nội dun
 <hr>
 
 </section>
-<header id="hosting">10. Hosting</header>
-<section class="main-section" id="hosting_create">	<header>10.1. create</header>
+<header id="hosting">11. Hosting</header>
+<section class="main-section" id="hosting_create">	<header>11.1. create</header>
 <p>
 Cho phép người dùng tạo hosting thông qua token xác thực tài khoản, để tạo hosting cần phải cung cấp để tạo hosting.
 </p>
@@ -4376,7 +4806,7 @@ Trường hợp nếu tạo hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="hosting_remove">	<header>10.2. remove</header>
+<section class="main-section" id="hosting_remove">	<header>11.2. remove</header>
 <p>
 Yêu cầu xóa hosting dựa vào thông tin token của người dùng, nếu token chính xác thì HTTP code phản hồi sẽ là 200, còn nếu token không chính xác hoặc không tồn tại thì HTTP code phản hồi sẽ là 203.
 </p>
@@ -4471,7 +4901,7 @@ Trường hợp xóa hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="hosting_reset">	<header>10.3. reset</header>
+<section class="main-section" id="hosting_reset">	<header>11.3. reset</header>
 <p>
 Yêu cầu thực hiện thiết lập lại cấu hình và hosting về chế độ mặc định giống như lúc mới tạo hosting.
 </p>
@@ -4566,7 +4996,7 @@ Trường hợp reset hosting thất bại.
 <hr>
 
 </section>
-<section class="main-section" id="hosting_check_available">	<header>10.4. check_available</header>
+<section class="main-section" id="hosting_check_available">	<header>11.4. check_available</header>
 <p>
 Yêu cầu thực hiện kiểm tra thông tin của tên hosting đã được đăng ký sử dụng hay chưa?
 </p>
