@@ -20,6 +20,7 @@ from src.ftp.ftp					import FTP
 from src.php.php_configure			import PHP_CONFIGURE
 
 from src.system.disk                import DISK
+from src.system.token				import TOKEN
 from src.system.backup				import BACKUP
 
 from src.system.db.mysql            import MYSQL
@@ -52,6 +53,8 @@ def process_backup():
 				BACKUP.all()
 				# cập nhật lại thông tin 
 				datetime_run		= datetime.now()
+				# thực hiện cập nhật khóa riêng mới theo ngày
+				TOKEN.generate_private_key()
 			# wait time
 			time.sleep(60 * 30)
 		except Exception as e:

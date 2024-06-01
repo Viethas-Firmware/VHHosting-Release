@@ -247,6 +247,10 @@ p {
 </li>
 <ul>
 	<li>
+	<a class="nav-link" href="#ssl_install">install</a>
+
+</li>
+<li>
 	<a class="nav-link" href="#ssl_manager_generate">generate</a>
 
 </li>
@@ -277,6 +281,30 @@ p {
 </li>
 <ul>
 	<li>
+	<a class="nav-link" href="#admin_ssl_install">ssl install</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_ssl_generate">ssl generate</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_domain_redirect">redirect</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_domain_remove_redirect">remove redirect</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_hosting_update">hosting update</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#admin_get_hosting">get hosting</a>
+
+</li>
+<li>
 	<a class="nav-link" href="#admin_create">create</a>
 
 </li>
@@ -289,7 +317,7 @@ p {
 
 </li>
 <li>
-	<a class="nav-link" href="#admin_update_feature">update_feature</a>
+	<a class="nav-link" href="#admin_update_feature">update feature</a>
 
 </li>
 <li>
@@ -484,6 +512,14 @@ p {
 	<a class="nav-link" href="#hosting_check_available">check_available</a>
 
 </li>
+<li>
+	<a class="nav-link" href="#hosting_update">update</a>
+
+</li>
+<li>
+	<a class="nav-link" href="#hosting_get">get</a>
+
+</li>
 
 </ul>
 
@@ -498,7 +534,122 @@ URL:   <code class="code-url">https://developer.webappgiare.vn:2440</code>
 
 </p>
 <header id="ssl manager">1. SSL Manager</header>
-<section class="main-section" id="ssl_manager_generate">	<header>1.1. generate</header>
+<section class="main-section" id="ssl_install">	<header>1.1. install</header>
+<p>
+Yêu cầu cài đặt chứng chỉ do người dùng cung cấp dành cho tên miền của người dùng vào hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/ssl/install</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting dùng để chứa chứng chỉ và cũng là hosting mà tên miền được chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền cần được cài đặt chứng chỉ.
+</p>
+<p>
++ <code >folder</code>
+: Đường dẫn tới thư mục chứa chứng chỉ trong hosting
+</p>
+<p>
++ <code >cert_name</code>
+: Tên của tập tin chứng chỉ.
+</p>
+<p>
++ <code >key_name</code>
+: Tên của tập tin khóa riêng của chứng chỉ.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "abcdefghklmn.webappgiare.vn",
+    "domain": "iqviet.vn",
+    "folder": "/public_ssl/iqviet.vn/",
+    "cert_name": "iqviet.vn.crt",
+    "key_name": "iqviet.vn.key"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -114,
+    "msg": "The certificate domain is invalid"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="ssl_manager_generate">	<header>1.2. generate</header>
 <p>
 Yêu cầu cấp chứng chỉ miễn phí cho tên miền. Lưu ý việc cấp chứng chỉ này cần đươc xác thực tên miền thông qua DNS record và thời hạn của chứng chỉ là 3 tháng, hết 3 tháng cần phải cấp phát mới.
 </p>
@@ -975,7 +1126,641 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 
 </section>
 <header id="admin">3. Admin</header>
-<section class="main-section" id="admin_create">	<header>3.1. create</header>
+<section class="main-section" id="admin_ssl_install">	<header>3.1. ssl install</header>
+<p>
+Yêu cầu cài đặt chứng chỉ do người dùng cung cấp dành cho tên miền của người dùng vào hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/ssl_install</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting dùng để chứa chứng chỉ và cũng là hosting mà tên miền được chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền cần được cài đặt chứng chỉ.
+</p>
+<p>
++ <code >folder</code>
+: Đường dẫn tới thư mục chứa chứng chỉ trong hosting
+</p>
+<p>
++ <code >cert_name</code>
+: Tên của tập tin chứng chỉ.
+</p>
+<p>
++ <code >key_name</code>
+: Tên của tập tin khóa riêng của chứng chỉ.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "abcdefghklmn.webappgiare.vn",
+    "domain": "iqviet.vn",
+    "folder": "/public_ssl/iqviet.vn/",
+    "cert_name": "iqviet.vn.crt",
+    "key_name": "iqviet.vn.key"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -114,
+    "msg": "The certificate domain is invalid"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_ssl_generate">	<header>3.2. ssl generate</header>
+<p>
+Yêu cầu cấp chứng chỉ miễn phí cho tên miền. Lưu ý việc cấp chứng chỉ này cần đươc xác thực tên miền thông qua DNS record và thời hạn của chứng chỉ là 3 tháng, hết 3 tháng cần phải cấp phát mới.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/ssl_generate</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<p>
++ <code >username</code>
+: Tên tài khoản của người dùng sở hữu tên miền.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "domain": "iqviet.vn",
+    "username": "username@gmail.com"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -74,
+    "msg": "[DNS] record TXT _acme-challenge xxx26170706769617xxx;"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_domain_redirect">	<header>3.3. redirect</header>
+<p>
+Yêu cầu chuyển hướng tên miền tới hosting, để yêu cầu thực hiện thành công cần tham số hosting là host mà tên miền cần được chuyển hướng, domain là tên của người dùng cần chuyển hướng. Các thực hiện sẽ như sau khi thực hiện yêu cầu lần đầu tiên thì API sẽ trả về các thông tin yêu cầu thêm bản ghi DNS cho domain nếu domain thiếu các thông tin sau: A @ 115.78.228.208; TXT _vhdomainconnect xxx134125xxx;
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/domain_redirect</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting mà tên miền cần chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "domain": "iqviet.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Mã lỗi -74 có chức năng thông báo domain chưa có nhưng bản ghi mà hệ thông yêu cầu sẽ phản hồi về thông tin và nội dung các bản ghi mà hệ thống cần
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -74,
+    "msg": "[DNS] record TXT _vhdomainconnect 77656261707067696172652e766e;"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_domain_remove_redirect">	<header>3.4. remove redirect</header>
+<p>
+Yêu cầu hủy chuyển hướng tên miền tới hosting
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/domain_remove_redirect</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting mà tên miền cần chuyển hướng
+</p>
+<p>
++ <code >domain</code>
+: Thông tin tên miền của người dùng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "smarthome.webappgiare.vn",
+    "domain": "iqviet.vn"
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện thành công thì sẽ trả mã lỗi bằng 0 và thông báo 'Success'.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trong trường hợp tên miền chưa được chuyển hướng tới hosting hoặc được chuyển hướng tới một hosting khác thì sẽ phản hồi về mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -77,
+    "msg": "The domain name has not been redirected to hosting"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_hosting_update">	<header>3.5. hosting update</header>
+<p>
+Yêu cầu thực hiện cập nhật thông tin của hosting, các thông số cần cập nhật là dung lượng chứa của hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/admin/update_hosting</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting cần được cập nhật.
+</p>
+<p>
++ <code >size</code>
+: Dung lượng hosting cần cập nhật số nguyên là 1, 2, 3 ... và đơn vị là Gb.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "abcxyzlmn.webappgiare.vn",
+    "size": 1
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp reset hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trường hợp reset hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "vcode": -42,
+    "msg": "Hosting name is exists"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_get_hosting">	<header>3.6. get hosting</header>
+<p>
+Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải cung cấp token để xác thực tài khoản người dùng
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/admin/get_hosting</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng.
+</p>
+<p>
++ <code >hosting</code>
+: Danh sách các hosting mà người dùng đang sở hữu.
+</p>
+<p>
++ <code >storage</code>
+: Thông tin về dung lượng ổ cứng mà người dùng đang sở hữu, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng chưa sử dụng và phần trăm.
+</p>
+<p>
++ <code >bandwidth</code>
+: Thông tin về băng thông mà người dùng đã sử dụng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "data": {
+        "name": "domain05.webappgiare.vn",
+        "created": "02/27/2024, 12:25:30",
+        "storage": {
+            "filesystem": "/dev/loop21",
+            "size": "488M",
+            "used": "51M",
+            "avail": "401M",
+            "percent": "12%"
+        },
+        "analysis": {
+            "bandwidth": "7680077.9 Kb",
+            "total_requests": 4899,
+            "valid_requests": 4899,
+            "visitors": 91,
+            "start_date": "27/Thg 3/2024",
+            "end_date": "08/Thg 5/2024"
+        }
+    },
+    "vcode": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token paremeter is wrong"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="admin_create">	<header>3.7. create</header>
 <p>
 Yêu cầu tạo tài khoản admin, để thực hiện yêu cầu thông tin email/phone và password để tạo tài khoản, ngoài ra cần phải có token của admin có phân quyền tạo tài khoản mới được cho phép tạo.
 </p>
@@ -1108,7 +1893,7 @@ Nếu thực hiện yêu cầu thất bại trả về lỗi, tra cứu mã lỗ
 <hr>
 
 </section>
-<section class="main-section" id="admin_remove">	<header>3.2. remove</header>
+<section class="main-section" id="admin_remove">	<header>3.8. remove</header>
 <p>
 Yêu cầu xóa tài khoản admin, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
 </p>
@@ -1203,7 +1988,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_update">	<header>3.3. update</header>
+<section class="main-section" id="admin_update">	<header>3.9. update</header>
 <p>
 Yêu cầu cập nhật tài khoản admin thông tin cập nhật bao gồm new_password và new_priority, để thực hiện yêu cầu phải có token của tài khoản admin được phân quyền và username của tài khoản admin muốn xóa.
 </p>
@@ -1343,7 +2128,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_update_feature">	<header>3.4. update_feature</header>
+<section class="main-section" id="admin_update_feature">	<header>3.10. update feature</header>
 <p>
 Yêu cầu thực hiện cập nhật các chức năng của tài khoản người dùng thông qua quản trị viên, có thế cập nhật từng chức năng hoặc nhiều chức năng cùng lúc.
 </p>
@@ -1492,7 +2277,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_get_all_admin">	<header>3.5. get all administration</header>
+<section class="main-section" id="admin_get_all_admin">	<header>3.11. get all administration</header>
 <p>
 Yêu cầu cho phép lấy danh sách của tất cả quản trị viên.
 </p>
@@ -1592,7 +2377,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_get_all_user">	<header>3.6. get all user</header>
+<section class="main-section" id="admin_get_all_user">	<header>3.12. get all user</header>
 <p>
 Yêu cầu thực hiện lấy danh sách tất cả người dùng trong hệ thống, để thực hiện được yêu cầu QTV cần phải được phân quyền.
 </p>
@@ -1717,7 +2502,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_check_release">	<header>3.7. check release</header>
+<section class="main-section" id="admin_check_release">	<header>3.13. check release</header>
 <p>
 Yêu cầu kiểm tra thông tin cập nhật, yêu cầu này chỉ thực hiện được khi qtv được phân quyền ở mức cao nhất.
 </p>
@@ -1811,7 +2596,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_download_update">	<header>3.8. download update</header>
+<section class="main-section" id="admin_download_update">	<header>3.14. download update</header>
 <p>
 Yêu cầu tải xuống bản cập nhật mới nhất, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
 </p>
@@ -1895,7 +2680,7 @@ Nếu thực hiện thất bại sẽ trả về mã lỗi khác 0 tra cứu mã
 <hr>
 
 </section>
-<section class="main-section" id="admin_install_update">	<header>3.9. install update</header>
+<section class="main-section" id="admin_install_update">	<header>3.15. install update</header>
 <p>
 Yêu cầu cài đặt cập nhật đã được tải xuống, sau khi cài đặt xong thì hệ thống sẽ khởi động lại nên sẽ không có kết quả phản hồi khi hệ thống đang được khởi động lại, lưu ý yêu cầu này chỉ được thực hiện với qtv được phân quyền ở mức cao nhất. Tất cả các thao tác ở hệ thống đều được ghi lại ở hệ thống.
 </p>
@@ -2894,10 +3679,6 @@ Yêu cầu lấy thông tin của người dùng để lấy thông tin người
 <p>
 + <code >bandwidth</code>
 : Thông tin về băng thông mà người dùng đã sử dụng.
-</p>
-<p>
-+ <code >innodes</code>
-: Số lượng tập tin mà người dùng đã tải lên tất cả hosting mà người dùng quản lý
 </p>
 <table class="tb_headers">
 	<tr class="tb_header_head">
@@ -5083,6 +5864,225 @@ Trường hợp reset hosting thất bại.
 {
     "vcode": -42,
     "msg": "Hosting name is exists"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="hosting_update">	<header>11.5. update</header>
+<p>
+Yêu cầu thực hiện cập nhật thông tin của hosting, các thông số cần cập nhật là dung lượng chứa của hosting.
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >POST</a>
+<code class="code-url">/api/hosting/v1/update</code>
+
+</p>
+<h2>Parameter</h2>
+<p>
++ <code >hosting</code>
+: Tên của hosting cần được cập nhật.
+</p>
+<p>
++ <code >size</code>
+: Dung lượng hosting cần cập nhật số nguyên là 1, 2, 3 ... và đơn vị là Gb.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Content-Type</th>
+<th>multipart/form-data</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+{
+    "hosting": "abcxyzlmn.webappgiare.vn",
+    "size": 1
+}
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Trả về kết quả thực hiện dưới dạng văn bản.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Trường hợp reset hosting thành công
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Trường hợp reset hosting thất bại.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "vcode": -42,
+    "msg": "Hosting name is exists"
+}
+	</code>
+</pre>
+
+</div>
+<hr>
+
+</section>
+<section class="main-section" id="hosting_get">	<header>11.6. get</header>
+<p>
+Yêu cầu lấy thông tin của người dùng để lấy thông tin người dùng cần phải cung cấp token để xác thực tài khoản người dùng
+</p>
+<h3>Request</h3>
+<div  style="padding-left: 20px;">
+	<h2>URI</h2>
+<p>
+<a class="code-method" >GET</a>
+<code class="code-url">/api/hosting/v1/get</code>
+
+</p>
+<h2>Parameter</h2>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Headers</th>
+<th>Value</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>Authorization</th>
+<th>Bearer {YOUR TOKEN}</th>
+
+</tr>
+
+</table>
+<h2>Body</h2>
+<pre>
+	<code class="language-json content_code">
+
+	</code>
+</pre>
+
+</div>
+<h3>Response</h3>
+<div  style="padding-left: 20px;">
+	<p>
++ <code >code</code>
+: Mã lỗi trả về cho yêu cầu nếu mã bằng 0 thực hiện thành công 1 thực hiện thất bại.
+</p>
+<p>
++ <code >msg</code>
+: Nội dung kết quả xử lý của yêu cầu.
+</p>
+<p>
++ <code >username</code>
+: Tên người dùng.
+</p>
+<p>
++ <code >hosting</code>
+: Danh sách các hosting mà người dùng đang sở hữu.
+</p>
+<p>
++ <code >storage</code>
+: Thông tin về dung lượng ổ cứng mà người dùng đang sở hữu, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng chưa sử dụng và phần trăm.
+</p>
+<p>
++ <code >bandwidth</code>
+: Thông tin về băng thông mà người dùng đã sử dụng.
+</p>
+<table class="tb_headers">
+	<tr class="tb_header_head">
+	<th>Status</th>
+<th>Description</th>
+
+</tr>
+<tr class="tb_header_content">
+	<th>200</th>
+<th>OK</th>
+
+</tr>
+
+</table>
+<p>
+Nếu thực hiện yêu cầu thành công nhận phản hồi 'code' là 0.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "data": {
+        "name": "domain05.webappgiare.vn",
+        "created": "02/27/2024, 12:25:30",
+        "storage": {
+            "filesystem": "/dev/loop21",
+            "size": "488M",
+            "used": "51M",
+            "avail": "401M",
+            "percent": "12%"
+        },
+        "analysis": {
+            "bandwidth": "7680077.9 Kb",
+            "total_requests": 4899,
+            "valid_requests": 4899,
+            "visitors": 91,
+            "start_date": "27/Thg 3/2024",
+            "end_date": "08/Thg 5/2024"
+        }
+    },
+    "vcode": 0,
+    "msg": "Success"
+}
+	</code>
+</pre>
+<p>
+Nếu thực hiện yêu cầu thất bại thì sẽ phản hồi về 'code' lỗi tùy từng trường hợp lỗi gặp phải, và nội dung của mã lỗi.
+</p>
+<pre>
+	<code class="language-json content_code">
+{
+    "code": -7,
+    "msg": "Token paremeter is wrong"
 }
 	</code>
 </pre>
